@@ -1,0 +1,7 @@
+"starwarsrp"
+{
+	"title"			"StarWarsRP"
+	"maps"			"^rp_"
+	"base"			"sandbox"
+	"author"		"MetaHub Team"
+}

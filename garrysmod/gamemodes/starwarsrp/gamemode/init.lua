@@ -1,0 +1,5 @@
+AddCSLuaFile( 'shared.lua' )
+AddCSLuaFile( 'sh_include.lua' )
+AddCSLuaFile( 'cl_init.lua' )
+include( 'shared.lua' )
+include( 'sh_include.lua' )
