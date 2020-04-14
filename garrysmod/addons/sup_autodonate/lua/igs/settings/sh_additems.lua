@@ -296,7 +296,7 @@ for group,t in pairs({
 		image  = "https://i.ibb.co/vxSctXw/keter1.jpg",
 		icon   = "https://i.ibb.co/VmPdSrV/KETER.jpg",
 		weight = 3,
-		{399}, -- 500
+		{199}, -- 500
 	},
 	["afina"] = {
 		name   = "Афина",
@@ -305,7 +305,7 @@ for group,t in pairs({
 		image  = "https://i.ibb.co/ypnQpfd/afina1.jpg",
 		icon   = "https://i.ibb.co/sq9fJPt/AFINA.jpg",
 		weight = 4,
-		{699}, -- 800
+		{499}, -- 800
 	},
 	["thaumiel"] = {
 		name   = "Таумиель",
@@ -314,7 +314,7 @@ for group,t in pairs({
 		image  = "https://i.ibb.co/kB6qfV8/thaumiel.jpg",
 		icon   = "https://i.ibb.co/DLKhnnD/THAUMIEL.jpg",
 		weight = 5,
-		{999}, -- 1100
+		{699}, -- 1100
 	},
 	["apollo"] = {
 		name   = "Аполлион",
@@ -323,7 +323,7 @@ for group,t in pairs({
 		image  = "https://i.ibb.co/1q7r35H/apollo1.jpg",
 		icon   = "https://i.ibb.co/sVR1PG3/APPOLION.jpg",
 		weight = 6,
-		{1499}, -- 1500
+		{999}, -- 1500
 	},
 	-- ["jedi"] = {
 	-- 	name  = "Орден Джедаев",
@@ -339,7 +339,7 @@ for group,t in pairs({
 		image  = "https://i.ibb.co/R42sTnD/122sa.jpg",
 		desc  = leg_description,
 		weight = 1,
-		{6499}, -- 600
+		{5499}, -- 600
 	},
 	["pers"] = {
 		name  = "Свой Персонаж",
@@ -347,7 +347,7 @@ for group,t in pairs({
 		desc  = pers_description,
 		image  = "https://i.ibb.co/ZKFnPx1/1sa.jpg",
 		weight = 1,
-		{1499}, -- 600
+		{1199}, -- 600
 	},
 	-- ["pers4"] = {
 	-- 	name  = "Свой Джедай",
@@ -363,7 +363,7 @@ for group,t in pairs({
 		desc  = pers1_description,
 		image  = "https://i.ibb.co/Bsfg2JC/sq.jpg",
 		weight = 1,
-		{4999}, -- 600
+		{3999}, -- 600
 	},
 	["pers2"] = {
 		name  = "Отряд Клонов 99",
@@ -379,7 +379,7 @@ for group,t in pairs({
 		desc  = pers3_description,
 		image  = "https://i.ibb.co/61xWk5B/m-BMc345pgq.jpg",
 		weight = 1,
-		{249}, -- 600
+		{199}, -- 600
 	},
 }) do
 	local GROUP = IGS.NewGroup(t["name"])

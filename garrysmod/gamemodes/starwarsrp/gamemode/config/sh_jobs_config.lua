@@ -16,6 +16,12 @@ local arf_models = {
     "models/arf_sgt/arf_sgt_tds.mdl",
     "models/arf_lt/arf_lt_tds.mdl",
     "models/arf_exo/arf_exo_tds.mdl",
+    "models/player/ct_woodland/ct_woodland.mdl",
+    "models/player/sgt_woodland/sgt_woodland.mdl",
+    "models/player/ltn_woodland/ltn_woodland.mdl",
+    "models/player/cpt_woodland/cpt_woodland.mdl",
+    "models/player/gingers_arf_razor/gingers_arf_razor.mdl",
+    "models/player/gingers_arf_stak/gingers_arf_stak.mdl",
 }
 
 local doom_models = {
@@ -89,13 +95,18 @@ local orange_models = {
     "models/player/spec212/212_spec.mdl",
     "models/player/off212/212_off.mdl",
     "models/player/heavy212/212_heavy.mdl",
-    "models/player/212thcocody/212thcocody.mdl",
     "models/player/air212/212thairborr.mdl",
-    "models/player/212tharf/212tharf.mdl",
-    "models/player/212thbarct/212thbarct.mdl",
-    "models/player/212thboiil/212thboiil.mdl",
+    "models/player/212thcocody/212thcocody.mdl",
     "models/player/212thwaxr/212thwaxr.mdl",
     "models/player/212thsharp/212thsharp.mdl",
+    "models/player/212thmedi/212thmedi.mdl",
+    "models/player/212thlieut/212thlieut.mdl",
+    "models/player/212thjett/212thjett.mdl",
+    "models/player/212thboiil/212thboiil.mdl",
+    "models/player/212thbatroop/212thbatroop.mdl",
+    "models/player/212thbarct/212thbarct.mdl",
+    "models/player/212thaerial/212thaerial.mdl",
+    "models/player/212thairborr/212thairborr.mdl",
     "models/player/212thlieut/212thlieut.mdl",
 }
 
@@ -223,11 +234,78 @@ local ct_models = {
 
 local ct2_models = {
     "models/player/deltas_ks_trooper/deltas_ks_trooper.mdl",
-    "models/player/deltas_ks_aerial_recon/deltas_ks_aerial_recon.mdl",
-    "models/player/deltas_ks_captain/deltas_ks_captain.mdl",
     "models/player/deltas_ks_sharpshooter/deltas_ks_sharpshooter.mdl",
-    "models/player/deltas_ks_barc/deltas_ks_barc_elite.mdl",
+    "models/player/deltas_ks_medic/deltas_ks_medic.mdl",
+    "models/player/deltas_ks_jet/deltas_ks_jet_elite.mdl",
     "models/player/deltas_ks_commander/deltas_ks_commander.mdl",
+    "models/player/deltas_ks_captain/deltas_ks_captain.mdl",
+    "models/player/deltas_ks_barc/deltas_ks_barc_elite.mdl",
+    "models/player/deltas_ks_arf/deltas_ks_arf.mdl",
+    "models/player/deltas_ks_aerial_recon/deltas_ks_aerial_recon.mdl",
+}
+
+local recon394_models = {
+    "models/player/gingers_assassin/gingers_imperial_scout_trooper.mdl",
+    "models/player/gingers_assassin/gingers_imperial_scout_captain.mdl",
+    "models/player/gingers_assassin/gingers_assassin_commander.mdl",
+    "models/player/gingers_assassin/gingers_assassin_arf_intelligence.mdl",
+    "models/player/gingers_assassin/gingers_assassin_arf_captain.mdl",
+    "models/player/gingers_assassin/gingers_assassin_arc_captain.mdl",
+}
+
+local recon91_models = {
+    "models/player/gingers_91st_visor_trooper/gingers_91st_visor_trooper.mdl",
+    "models/player/gingers_91st_trooper_p2/gingers_91st_trooper_p2.mdl",
+    "models/player/gingers_91st_trooper2/gingers_91st_trooper2.mdl",
+    "models/player/gingers_91st_trooper/gingers_91st_trooper.mdl",
+    "models/player/gingers_91st_sniper/gingers_91st_sniper.mdl",
+    "models/player/gingers_91st_neyo/gingers_91st_neyo.mdl",
+    "models/player/gingers_91st_medic_p2/gingers_91st_medic_p2.mdl",
+    "models/player/gingers_91st_medic/gingers_91st_medic.mdl",
+    "models/player/gingers_91st_lieutenant/gingers_91st_lieutenant.mdl",
+    "models/player/gingers_91st_jet_trooper/gingers_91st_jet_trooper.mdl",
+    "models/player/gingers_91st_basic_trooper_p2/gingers_91st_basic_trooper_p2.mdl",
+    "models/player/gingers_91st_basic_trooper/gingers_91st_basic_trooper.mdl",
+    "models/player/gingers_91st_arf/gingers_91st_arf.mdl",
+    "models/player/gingers_91st_aerial_recon/gingers_91st_aerial_recon.mdl",
+}
+
+local red386_models = {
+    "models/player/gingers_386th_trooper/gingers_386th_trooper.mdl",
+    "models/player/gingers_386th_scrapper/gingers_386th_scrapper.mdl",
+    "models/player/gingers_386th_medic/gingers_386th_medic.mdl",
+    "models/player/gingers_386th_ghost/gingers_386th_ghost.mdl",
+    "models/player/gingers_386th_commander/gingers_386th_commander.mdl",
+    "models/player/gingers_386th_cleaner/gingers_386th_cleaner.mdl",
+    "models/player/gingers_386th_charger/gingers_386th_charger.mdl",
+    "models/player/gingers_386th_arf/gingers_386th_arf.mdl",
+}
+
+local gree41_models = {
+    "models/galactic/clones/41gc/trooper.mdl",
+    "models/galactic/clones/41gc/nco.mdl",
+    "models/galactic/clones/41gc/lowofc.mdl",
+    "models/galactic/clones/41gc/highofc.mdl",
+    "models/galactic/clones/41gc/greenleader.mdl",
+    "models/galactic/clones/41gc/gett.mdl",
+    "models/galactic/clones/41gc/draa.mdl",
+    "models/galactic/clones/41gc/buzz.mdl",
+}
+
+local red21_models = {
+    "models/player/trooper21/21_trp.mdl",
+    "models/player/spec21/21_spec.mdl",
+    "models/player/med21/21_medic.mdl",
+    "models/player/heavy21/21_heavy.mdl",
+    "models/player/bacara/gm_bacara.mdl",
+}
+
+local violet_models = {
+    "models/player/trooper187/187_trp.mdl",
+    "models/player/spec187/187_spec.mdl",
+    "models/player/med187/187_medic.mdl",
+    "models/player/heavy187/187_heavy.mdl",
+    "models/player/187th_cmd/187th_cmd.mdl",
 }
 
 TEAM_OVERWATCH = meta.util.addjob("Администратор", {
@@ -293,8 +371,8 @@ TEAM_B1 = meta.util.addjob("Дроид B1", {
     jobID = "b1",
     max = 99,
     notarget = true,
-    maxHealth = 100,
-    maxArmor = 200,
+    maxHealth = 150,
+    maxArmor = 250,
     flashlight = true,
     Type = TYPE_DROID,
     control = CONTROL_CIS,
@@ -311,7 +389,7 @@ TEAM_B1s = meta.util.addjob("Дроид B1 Снайпер", {
     max = 99,
     notarget = true,
     maxHealth = 100,
-    maxArmor = 100,
+    maxArmor = 150,
     flashlight = true,
     Type = TYPE_DROID,
     control = CONTROL_CIS,
@@ -327,8 +405,8 @@ TEAM_B1h = meta.util.addjob("Дроид B1 Тяжёлый", {
     jobID = "b1h",
     max = 99,
     notarget = true,
-    maxHealth = 100,
-    maxArmor = 100,
+    maxHealth = 250,
+    maxArmor = 350,
     flashlight = true,
     Type = TYPE_DROID,
     control = CONTROL_CIS,
@@ -342,8 +420,8 @@ TEAM_B2 = meta.util.addjob("Дроид B2", {
     jobID = "b2",
     max = 99,
     notarget = true,
-    maxHealth = 100,
-    maxArmor = 200,
+    maxHealth = 500,
+    maxArmor = 500,
     flashlight = true,
     Type = TYPE_DROID,
     control = CONTROL_CIS,
@@ -358,7 +436,7 @@ TEAM_BX = meta.util.addjob("Дроид BX", {
     max = 99,
     notarget = true,
     maxHealth = 200,
-    maxArmor = 300,
+    maxArmor = 400,
     Type = TYPE_DROID,
     flashlight = true,
     control = CONTROL_CIS,
@@ -372,11 +450,12 @@ TEAM_DROIDEKA = meta.util.addjob("Дроидека", {
     jobID = "droideka",
     max = 99,
     notarget = true,
-    maxHealth = 700,
-    maxArmor = 700,
+    maxHealth = 4000,
+    maxArmor = 4000,
     Type = TYPE_DROID,
     flashlight = true,
     control = CONTROL_CIS,
+    PlayerSpawn = function(ply) ply:SetModelScale(0.8, 1) end,
 })
 
 TEAM_COMMANDO = meta.util.addjob("Коммандос", {
@@ -398,10 +477,10 @@ TEAM_COMMANDO = meta.util.addjob("Коммандос", {
     "models/galactic/clones/rc/unknown.mdl",
     },
     description = [[]],
-    weapons = {'weapon_hands','sup_dc15sa','sup_dc17mbr','sup_dc17m_shotgun','sup_dc17m_sniper','weapon_frag','weapon_slam','weapon_lfsmissilelauncher','hook','zeus_thermaldet','zeus_smokegranade','zeus_flashbang','weapon_defibrillator','commando_knife'},
+    weapons = {'weapon_hands','sup_dc15sa','sup_dc17mbr','sup_dc17m_shotgun','sup_dc17antiarmor','sup_dc17m_sniper','weapon_frag','weapon_slam','weapon_lfsmissilelauncher','t3m4_empgrenade','hook','zeus_thermaldet','zeus_smokegranade','zeus_flashbang','weapon_defibrillator','commando_knife'},
     jobID = "commando",
     maxHealth = 300,
-    maxArmor = 300,
+    maxArmor = 400,
     max = 99,
     Type = TYPE_CLONE,
     flashlight = true,
@@ -503,7 +582,7 @@ TEAM_ARF = meta.util.addjob("Отряд Разведки", {
     Color = Color(120, 120, 120, 220),
     WorldModel = arf_models, -- Дефолдная модель.
     description = [[]],
-    weapons = {'weapon_hands','swb_knife','sup_dc15a','sup_dc17','hook','sup_repsniper'},
+    weapons = {'weapon_hands','m9k_knife','sup_dc15s','sup_dc17','hook','sup_repsniper','t3m4_empgrenade'},
     jobID = "arf",
     maxHealth = 100,
     maxArmor = 100,
@@ -611,11 +690,95 @@ TEAM_212 = meta.util.addjob("212-й Десантно-Штурмовой Бата
     control = CONTROL_REPUBLIC,
 })
 
+TEAM_187 = meta.util.addjob("187-й Десантная Рота", {
+    Color = Color(148, 56, 209, 220),
+    WorldModel = violet_models, -- Дефолдная модель.
+    description = [[]],
+    weapons = {'weapon_hands','swb_knife','sup_dc15a','sup_dc17'},
+    jobID = "187",
+    maxHealth = 100,
+    maxArmor = 100,
+    max = 99,
+    Type = TYPE_CLONE,
+    flashlight = true,
+    control = CONTROL_REPUBLIC,
+})
+
+TEAM_21 = meta.util.addjob("21-й Нова Корпус", {
+    Color = Color(107, 14, 14, 220),
+    WorldModel = red21_models, -- Дефолдная модель.
+    description = [[]],
+    weapons = {'weapon_hands','swb_knife','sup_dc15a_21st','sup_dc17','zeus_thermaldet','zeus_smokegranade','zeus_flashbang','sup_z6'},
+    jobID = "21",
+    maxHealth = 100,
+    maxArmor = 100,
+    max = 99,
+    Type = TYPE_CLONE,
+    flashlight = true,
+    control = CONTROL_REPUBLIC,
+})
+
+TEAM_41 = meta.util.addjob("41-й Легион / Зелёная Рота", {
+    Color = Color(3, 110, 12, 220),
+    WorldModel = gree41_models, -- Дефолдная модель.
+    description = [[]],
+    weapons = {'weapon_hands','swb_knife','sup_dc15a','sup_repsniper','weapon_rope_knife','hook'},
+    jobID = "41",
+    maxHealth = 100,
+    maxArmor = 100,
+    max = 99,
+    Type = TYPE_CLONE,
+    flashlight = true,
+    control = CONTROL_REPUBLIC,
+})
+
+TEAM_394 = meta.util.addjob("394-й Отряд Поддержки", {
+    Color = Color(105, 55, 61, 220),
+    WorldModel = recon394_models, -- Дефолдная модель.
+    description = [[]],
+    weapons = {'weapon_hands','swb_knife','sup_dc15s','sup_dc17','sup_repsniper','hook','zeus_thermaldet','zeus_smokegranade','zeus_flashbang'},
+    jobID = "394",
+    maxHealth = 100,
+    maxArmor = 100,
+    max = 99,
+    Type = TYPE_CLONE,
+    flashlight = true,
+    control = CONTROL_REPUBLIC,
+})
+
+TEAM_386 = meta.util.addjob("386-я Бригада Поддержки и Прикрытия", {
+    Color = Color(161, 21, 38, 220),
+    WorldModel = red386_models, -- Дефолдная модель.
+    description = [[]],
+    weapons = {'weapon_hands','swb_knife','sup_dc15s','sup_dc17','armorkit','weapon_smallriotshield','alydus_fortificationbuildertablet','alydus_fusioncutter'},
+    jobID = "386",
+    maxHealth = 100,
+    maxArmor = 100,
+    max = 99,
+    Type = TYPE_CLONE,
+    flashlight = true,
+    control = CONTROL_REPUBLIC,
+})
+
+TEAM_91 = meta.util.addjob("91-й Разведовательный Корпус", {
+    Color = Color(255, 0, 0, 220),
+    WorldModel = recon91_models, -- Дефолдная модель.
+    description = [[]],
+    weapons = {'weapon_hands','swb_knife','sup_dc15a','sup_dc17','sup_repsniper','hook'},
+    jobID = "91",
+    maxHealth = 100,
+    maxArmor = 100,
+    max = 99,
+    Type = TYPE_CLONE,
+    flashlight = true,
+    control = CONTROL_REPUBLIC,
+})
+
 TEAM_612 = meta.util.addjob("612-й Атакующий Батальон", {
     Color = Color(173, 0, 0, 220),
     WorldModel = redd_models, -- Дефолдная модель.
     description = [[]],
-    weapons = {'weapon_hands','swb_knife','sup_dc15a','sup_dc17','zeus_thermaldet','zeus_smokegranade','giveammo','weapon_smallriotshield','sup_repshotgun'},
+    weapons = {'weapon_hands','swb_knife','sup_dc15a','sup_dc17','zeus_thermaldet','zeus_smokegranade','giveammo','sup_repshotgun'},
     jobID = "612",
     maxHealth = 100,
     maxArmor = 100,
@@ -708,7 +871,7 @@ TEAM_DON4 = meta.util.addjob("ЭРК Хоккайдо", {
 TEAM_DON5 = meta.util.addjob("ЭРК Кольт", {
     Color = Color(92, 130, 156, 220),
     WorldModel = {
-    "models/galactic/clones/arc/cdr.mdl",
+    "models/player/cgirancorcolt/cgirancorcolt.mdl",
     },
     description = [[]],
     weapons = {'weapon_hands','sup_arm5','sup_arm5','armorkit','sup_repsniper','sup_repshotgun','hook','m9k_suicide_bomb'},
@@ -772,7 +935,7 @@ TEAM_DON8 = meta.util.addjob("ЭРК Хаммер", {
 TEAM_DON9 = meta.util.addjob("ЭРК Альфа-17", {
     Color = Color(92, 130, 156, 220),
     WorldModel = {
-    "models/player/cgiarccpt/cgiarccpt.mdl",
+    "models/player/cgiarclt/cgiarclt.mdl",
     },
     description = [[]],
     weapons = {'weapon_hands','sup_arm5','armorkit','sup_arm5','sup_repsniper','hook','zeus_thermaldet','m9k_suicide_bomb'},
@@ -788,7 +951,7 @@ TEAM_DON9 = meta.util.addjob("ЭРК Альфа-17", {
 TEAM_DON10 = meta.util.addjob("ЭРК Альфа-77", {
     Color = Color(92, 130, 156, 220),
     WorldModel = {
-    "models/player/gary/commission/starwars/strife.mdl",
+    "models/player/cgiarccpt/cgiarccpt.mdl",
     },
     description = [[]],
     weapons = {'weapon_hands','sup_arm5','armorkit','sup_arm5','sup_repsniper','hook','zeus_thermaldet','sup_repshotgun'},
@@ -874,10 +1037,10 @@ TEAM_99 = meta.util.addjob("Отряд Клонов 99", {
     "models/galactic/clones/rc/tech.mdl",
     },
     description = [[]],
-    weapons = {'weapon_hands','sup_dc17','sup_dc15s','sup_dc17_dual','sup_dc15a','weapon_nox_bactakit','sup_dc17mbr','sup_dc17_dual','sup_dc17m_shotgun','sup_dc17m_sniper','commando_knife','weapon_lfsmissilelauncher','hook','zeus_smokegranade','zeus_flashbang','weapon_defibrillator'},
+    weapons = {'weapon_hands','sup_dc17','sup_dc15s','sup_dc17_dual','sup_dc15a','weapon_nox_bactakit','sup_dc17mbr','t3m4_empgrenade','sup_dc17antiarmor','sup_dc17_dual','sup_dc17m_shotgun','sup_dc17m_sniper','commando_knife','weapon_lfsmissilelauncher','hook','zeus_smokegranade','zeus_flashbang','weapon_defibrillator'},
     jobID = "99",
     maxHealth = 200,
-    maxArmor = 200,
+    maxArmor = 300,
     max = 99,
     Type = TYPE_CLONE,
     flashlight = true,
@@ -920,18 +1083,18 @@ TEAM_SQUAD2 = meta.util.addjob("Отряд Анкап", {
     control = CONTROL_REPUBLIC,
 })
 
-TEAM_DON11 = meta.util.addjob("Наёмник без имени", {
-    Color = Color(104, 102, 204, 220),
+TEAM_DON11 = meta.util.addjob("Ивентовый Парень над которым можно делать всякие штучки", {
+    Color = Color(94, 94, 94, 220),
     WorldModel = {
-    "models/player/artel/starwars28/flame.mdl",
+    "models/gman_high.mdl",
     },
     description = [[]],
-    weapons = {'weapon_hands',"sup_dc15s","weapon_slam","hook","sup_repat","weapon_baseshield","sup_dc15a",'sup_repshotgun','sup_repsniper'},
+    weapons = {'weapon_hands'},
     jobID = "don11",
     maxHealth = 200,
-    maxArmor = 100,
+    maxArmor = 200,
     max = 99,
-    Type = TYPE_CLONE,
+    Type = TYPE_CITIZEN,
     flashlight = true,
     control = CONTROL_REPUBLIC,
 })

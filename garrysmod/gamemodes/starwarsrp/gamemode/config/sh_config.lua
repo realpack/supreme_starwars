@@ -302,8 +302,28 @@ timer.Simple(1, function()
                 [TEAM_74] = true,
             }
         },
-        ['arf'] = { priority = 99, teams = {
-                [TEAM_ARF] = true,
+        ['91'] = { priority = 99, teams = {
+                [TEAM_91] = true,
+            }
+        },
+        ['187'] = { priority = 99, teams = {
+                [TEAM_187] = true,
+            }
+        },
+        ['386'] = { priority = 99, teams = {
+                [TEAM_386] = true,
+            }
+        },
+        ['21'] = { priority = 99, teams = {
+                [TEAM_21] = true,
+            }
+        },
+        ['41'] = { priority = 99, teams = {
+                [TEAM_41] = true,
+            }
+        },
+        ['394'] = { priority = 99, teams = {
+                [TEAM_394] = true,
             }
         },
         ['104'] = { priority = 99, teams = {
@@ -312,6 +332,10 @@ timer.Simple(1, function()
         },
         ['612'] = { priority = 99, teams = {
                 [TEAM_612] = true,
+            }
+        },
+        ['arf'] = { priority = 99, teams = {
+                [TEAM_ARF] = true,
             }
         },
         ['501'] = {
@@ -497,10 +521,11 @@ DEFAULT_FEATURES = {
     ['buld'] = false,
     ['comm'] = false,
     ['desu'] = false,
-    -- ['spec'] = false,
+    ['gren'] = false,
+    ['shield1'] = false,
     ['off'] = false,
     ['hvy'] = false,
-    -- ['arf'] = false,
+    ['snip'] = false,
     ['land'] = false,
     ['specialist'] = false,
     ['med'] = false,
@@ -522,6 +547,10 @@ timer.Simple(.1,function()
             name = 'Строитель',
             weapons = {'sup_repshotgun', 'weapon_baseshield', 'alydus_fortificationbuildertablet'},
         },
+        ['snip'] = {
+            name = 'Снайпер',
+            weapons = {'weapon_rope_knife', 'hook', 'sup_dc15s','sup_repsniper'},
+        },
         ['desu'] = {
             name = 'Десантник',
             weapons = {'sup_dc15s', 'weapon_hexshield', 'hook', 'zeus_thermaldet'},
@@ -534,10 +563,14 @@ timer.Simple(.1,function()
             name = 'Водитель',
             weapons = {'repair_tool', 'alydus_fusioncutter', 'sup_dc15sa'},
         },
-        -- ['spec'] = {
-        --     name = 'Танк',
-        --     weapons = {'sup_dc17_dual', 'sup_z6','sup_repat','m9k_milkormgl'},
-        -- },
+        ['gren'] = {
+            name = 'Гренадёр',
+            weapons = {'sup_dc15a', 'sup_repat','sup_repat','m9k_milkormgl'},
+        },
+        ['shield1'] = {
+            name = 'Щитовик',
+            weapons = {'zeus_flashbang', 'weapon_smallriotshield','sup_dc15s'},
+        },
         ['off'] = {
             name = 'Сапер',
             weapons = {'sup_repat','zeus_flashbang','zeus_smokegranade','zeus_thermaldet','m9k_suicide_bomb','weapon_slam'},

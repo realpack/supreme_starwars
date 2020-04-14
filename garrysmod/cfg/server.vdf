@@ -117,4 +117,9 @@
 	"hatshook_ammo"		"-1"
 	"sv_spawnjetpackonground"		"1"
 	"prone_movespeed"		"50"
+	"lfs_disable_damage_changes"		"0"
+	"lfs_disable_admin_notify"		"0"
+	"lfs_disable_admin_notify_ai"		"0"
+	"rpw_binoculars_hold"		"1"
+	"lfs_disable_all_overhaul_settings"		"0"
 }

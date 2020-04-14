@@ -71,17 +71,17 @@ function GM:PlayerShouldTaunt(pl, actid) return true end
 function GM:CanTool(pl, trace, mode) return pl:IsAdmin() end
 
 hook.Add("ShouldCollide", "SpawnPoints_ShouldCollide", function( ent1, ent2 )
-	-- print(ent1, ent2)
-	if IsValid( ent1 ) and IsValid( ent2 )  then
-		if (ent1:IsPlayer() and ent2:GetClass() == 'spawn_point') or (ent2:IsPlayer() and ent1:GetClass() == 'spawn_point') then
-			return false
-		end
-		
-		if ent1:GetClass() == 'prop_ragdoll' or ent2:GetClass() == 'prop_ragdoll' then
-			return false
-		end
-	end
+    -- print(ent1, ent2)
+    if IsValid( ent1 ) and IsValid( ent2 )  then
+        if (ent1:IsPlayer() and ent2:GetClass() == 'spawn_point') or (ent2:IsPlayer() and ent1:GetClass() == 'spawn_point') then
+            return false
+        end
+        
+        if ent1:GetClass() == 'prop_ragdoll' or ent2:GetClass() == 'prop_ragdoll' then
+            return false
+        end
+    end
 
-	-- We must call this because anything else should return true.
-	return true
+    -- We must call this because anything else should return true.
+    return true
 end)

@@ -619,7 +619,7 @@ local function OpenContextMenu()
         Person:SetZPos( -10 )
 
         Person.DoClick = function( self )
-            -- thirdperson_enabled = not thirdperson_enabled
+            thirdperson_enabled = not thirdperson_enabled
             -- Menu:Remove()
         end
 

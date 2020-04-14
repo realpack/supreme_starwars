@@ -11,14 +11,16 @@ if SERVER then
 
         meta.util.deathinfo = meta.util.deathinfo or {}
 
-		net.Start("RespawnTimer")
-			net.WriteBool(true)
-            if meta.util.deathinfo[pPlayer] then
-                net.WriteTable(meta.util.deathinfo[pPlayer])
-            else
-                net.WriteTable({})
-            end
-		net.Send(pPlayer)
+		-- net.Start("RespawnTimer")
+		-- 	net.WriteBool(true)
+        --     if meta.util.deathinfo[pPlayer] then
+        --         net.WriteTable(meta.util.deathinfo[pPlayer])
+        --     else
+        --         net.WriteTable({})
+        --     end
+		-- net.Send(pPlayer)
+
+		netstream.Start(pPlayer, 'RespawnTimer', true, meta.util.deathinfo[pPlayer] and meta.util.deathinfo[pPlayer] or {})
 
 		pPlayer:AddDeaths(1)
 
@@ -110,14 +112,14 @@ if CLIENT then
 
     local alpha_lerp, alpha = 0, 0
 	-- net.Receive("RespawnTimer", function()
-	netstream.Hook("RespawnTimer", function(bool)
+	netstream.Hook("RespawnTimer", function(bool, dmginfo)
 		if bool then
 			surface.PlaySound('sup_sound/death.mp3')
 
 
 			local dead = RealTime()
             -- PrintTable(net.ReadTable() or {})
-            local dmginfo = net.ReadTable() or {}
+            -- local dmginfo = net.ReadTable() or {}
 
             alpha = 160
             local markup_string = ''

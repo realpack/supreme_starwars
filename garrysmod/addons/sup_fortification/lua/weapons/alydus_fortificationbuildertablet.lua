@@ -48,9 +48,9 @@ SWEP.Secondary.Delay = 3.5
 SWEP.HoldType = "slam"
 SWEP.ViewModelFOV = 65
 SWEP.ViewModelFlip = false
-SWEP.UseHands = false
-SWEP.ViewModel				= "models/milrp/weapons/antitank/v_mine.mdl"
-SWEP.WorldModel				= "models/milrp/weapons/antitank/w_mine.mdl"
+SWEP.UseHands = true
+SWEP.ViewModel				= "models/galactic/weapons/vmodels/supdatapad.mdl"
+SWEP.WorldModel				= "models/galactic/weapons/wmodels/supdatapad.mdl"
 SWEP.ShowViewModel = true
 SWEP.ShowWorldModel = true
 

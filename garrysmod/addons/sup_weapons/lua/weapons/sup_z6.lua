@@ -57,18 +57,18 @@ SWEP.Primary.ClipSize = 250
 SWEP.Primary.DefaultClip = 0
 SWEP.Primary.Automatic = true
 
-SWEP.FireDelay = 0.03
+SWEP.FireDelay = 0.050
 SWEP.FireSound = Sound 'blaster.fire'
 SWEP.ReloadSound = Sound 'blaster.reload_pistol'
 SWEP.Recoil = 0.2
 
-SWEP.HipSpread = 0.04
+SWEP.HipSpread = 0.004
 SWEP.AimSpread = 0.005
 SWEP.VelocitySensitivity = 25
 SWEP.MaxSpreadInc = 0.04
 SWEP.SpreadPerShot = 0.002
 SWEP.SpreadCooldown = 0.1
 SWEP.Shots = 1
-SWEP.Damage = 10
+SWEP.Damage = 20
 SWEP.DeployTime = 1
 SWEP.ShowHands = true

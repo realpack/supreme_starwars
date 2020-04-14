@@ -159,7 +159,7 @@ local NPC = {
 	Name = "Трандошанин 1",
 	Class = "npc_combine_s",
 	Category = "SUP NPCs / Трандошане",
-	Model = "models/bx_captain/npc_droid_cis_bx_cpt_h.mdl"
+	Model = "models/tfa/comm/gg/npc_comb_sw_droid_commando.mdl"
 }
 list.Set( "NPC", "npc_sw_tbh_v1s1h", NPC )
 

@@ -61,7 +61,7 @@ SWEP.Primary.ClipSize = 80
 SWEP.Primary.DefaultClip = 5
 SWEP.Primary.Automatic = true
 
-SWEP.FireDelay = 0.085
+SWEP.FireDelay = 0.300
 SWEP.FireSound = Sound 'blaster.fire_smg'
 SWEP.ReloadSound = Sound 'blaster.reload_smg'
 SWEP.Recoil = 0.1
