@@ -388,6 +388,23 @@ function AdvertCISMassage( pPlayer, cmd, args )
 end
 meta.cmd.add('cis',AdvertCISMassage)
 
+
+function AdvertRANDOMMassage( pPlayer, cmd, args )
+    if not pPlayer:IsAdmin() then return end
+
+	table.remove(args,1)
+	local strMsg = string.Implode( " ", args )
+	netstream.Start(player.GetAll(), 'ChatMassage', {
+		pPlayer = pPlayer,
+        drawname = '',
+		pre = "Неизвестная Частота | ",
+		color = Color(33, 155, 255),
+		text = strMsg,
+        text_color = Color(2, 255, 242)
+	} )
+end
+meta.cmd.add('rnd',AdvertRANDOMMassage)
+
 function MeMassage( pPlayer, cmd, args )
 	table.remove(args,1)
 	local tblPlayers = {}

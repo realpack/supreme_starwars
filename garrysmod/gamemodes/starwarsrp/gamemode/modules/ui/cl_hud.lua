@@ -581,23 +581,23 @@ local Icons = {}
 
 
 
-Icons[NOTIFY_GENERIC] = Material("sup/ui/notifications/info.png")
+Icons[NOTIFY_GENERIC] = Material("sup_ui/vgui/gicons/info.png")
 
 
 
-Icons[NOTIFY_ERROR] = Material("sup/ui/notifications/error.png")
+Icons[NOTIFY_ERROR] = Material("sup_ui/metaui/warning.png")
 
 
 
-Icons[NOTIFY_UNDO] = Material("sup/ui/notifications/undo.png")
+Icons[NOTIFY_UNDO] = Material("sup_ui/vgui/gicons/backward-time.png")
 
 
 
-Icons[NOTIFY_HINT] = Material("sup/ui/notifications/hint.png")
+Icons[NOTIFY_HINT] = Material("sup_ui/metaui/question.png")
 
 
 
-Icons[NOTIFY_CLEANUP] = Material("sup/ui/notifications/error.png")
+Icons[NOTIFY_CLEANUP] = Material("sup_ui/metaui/warning.png")
 
 
 
@@ -605,7 +605,7 @@ Icons[NOTIFY_CLEANUP] = Material("sup/ui/notifications/error.png")
 
 
 
-local LoadingIcon = Material("sup/ui/notifications/info.png")
+local LoadingIcon = Material("sup_ui/vgui/gicons/info.png")
 
 
 

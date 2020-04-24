@@ -20,10 +20,16 @@ function ENT:OnTakeDamage(dmginfo)
 end
 
 function ENT:AcceptInput(inputName, user)
+    local t, f = user:Team(), user:GetNVar('meta_features')
+    if not ((t == TEAM_7 or t == TEAM_104) and (f and (f['land'] or f['air']))) then return end
+    
     netstream.Start(user,'VehiclesSales_OpenMenu',nil)
 end
 
 netstream.Hook("VehiclesSales_ReturnVehicle", function(pPlayer, data)
+    local t, f = pPlayer:Team(), pPlayer:GetNVar('meta_features')
+    if not ((t == TEAM_7 or t == TEAM_104) and (f and (f['land'] or f['air']))) then return end
+
     local class = data.class
     for k, e in pairs( ents.FindByClass(class) ) do
         if e.VehicleSalesPlayer == pPlayer then
@@ -33,6 +39,10 @@ netstream.Hook("VehiclesSales_ReturnVehicle", function(pPlayer, data)
 end)
 
 netstream.Hook("VehiclesSales_BuyVehicle", function(pPlayer, data)
+    local t, f = pPlayer:Team(), pPlayer:GetNVar('meta_features')
+    if not ((t == TEAM_7 or t == TEAM_104) and (f and (f['land'] or f['air']))) then return end
+
+
     local class = data.class
     local vehicle = false
 
@@ -70,6 +80,9 @@ netstream.Hook("VehiclesSales_BuyVehicle", function(pPlayer, data)
 end)
 
 netstream.Hook("VehiclesSales_SpawnVehicle", function(pPlayer, data)
+    local t, f = pPlayer:Team(), pPlayer:GetNVar('meta_features')
+    if not ((t == TEAM_7 or t == TEAM_104) and (f and (f['land'] or f['air']))) then return end
+
     local vehicle_class = data.class
     local point = data.point
 

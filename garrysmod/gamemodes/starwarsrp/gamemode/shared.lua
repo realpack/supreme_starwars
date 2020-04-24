@@ -10,7 +10,8 @@ meta = {
 	util = util or {},
 	cmd = cmd or {
 		data = {}
-	}
+	},
+	ui = (meta and meta.ui) and meta.ui or {}
 }
 
 

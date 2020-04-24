@@ -222,32 +222,32 @@ if (CLIENT) then
 
 							btShield.blocker[client:EntIndex()] = client
 
-							if LocalPlayer():IsUserGroup('founder') then
-                                -- print(table.KeyFromValue( btShield.dualWield, weapon:GetClass() ) ~= nil)
+							-- if LocalPlayer():IsUserGroup('founder') then
+                            --     -- print(table.KeyFromValue( btShield.dualWield, weapon:GetClass() ) ~= nil)
 
-                                -- print(client, weapon:GetClass(), table.GetKeys(btShield.shieldList)[weapon:GetClass()]  )
-                                -- local bone = sInfo.bone
-                                -- local pos2, ang2 = sInfo.block.pos, sInfo.block.ang
+                            --     -- print(client, weapon:GetClass(), table.GetKeys(btShield.shieldList)[weapon:GetClass()]  )
+                            --     -- local bone = sInfo.bone
+                            --     -- local pos2, ang2 = sInfo.block.pos, sInfo.block.ang
 
-								local pos, ang = client:GetBonePosition(client:LookupBone(bone) or 1)
-								local tempAng = Angle(ang)
-									ang:RotateAroundAxis(tempAng:Forward(), ang_b[1])
-									ang:RotateAroundAxis(tempAng:Up(), ang_b[2])
-									ang:RotateAroundAxis(tempAng:Right(), ang_b[3])
-									pos = pos
-									+ tempAng:Up() * pos_b[1]
-									+ tempAng:Forward() * pos_b[2]
-									+ tempAng:Right() * pos_b[3]
-								tempAng = nil
-								cam.Start3D2D(pos, ang, 1)
-									draw.RoundedBox(0, -sInfo.block.sizex/2, -sInfo.block.sizey/2, sInfo.block.sizex, sInfo.block.sizey, color_white)
-								cam.End3D2D()
+							-- 	local pos, ang = client:GetBonePosition(client:LookupBone(bone) or 1)
+							-- 	local tempAng = Angle(ang)
+							-- 		ang:RotateAroundAxis(tempAng:Forward(), ang_b[1])
+							-- 		ang:RotateAroundAxis(tempAng:Up(), ang_b[2])
+							-- 		ang:RotateAroundAxis(tempAng:Right(), ang_b[3])
+							-- 		pos = pos
+							-- 		+ tempAng:Up() * pos_b[1]
+							-- 		+ tempAng:Forward() * pos_b[2]
+							-- 		+ tempAng:Right() * pos_b[3]
+							-- 	tempAng = nil
+							-- 	cam.Start3D2D(pos, ang, 1)
+							-- 		draw.RoundedBox(0, -sInfo.block.sizex/2, -sInfo.block.sizey/2, sInfo.block.sizex, sInfo.block.sizey, color_white)
+							-- 	cam.End3D2D()
 
-								surface.SetDrawColor(255, 255, 255)
-								render.DrawLine(pos, pos + ang:Forward() * 10, Color(255, 0, 0))
-								render.DrawLine(pos, pos + ang:Right() * 10, Color(0, 255, 0))
-								render.DrawLine(pos, pos + ang:Up() * 20, Color(0, 0, 255))
-							end
+							-- 	surface.SetDrawColor(255, 255, 255)
+							-- 	render.DrawLine(pos, pos + ang:Forward() * 10, Color(255, 0, 0))
+							-- 	render.DrawLine(pos, pos + ang:Right() * 10, Color(0, 255, 0))
+							-- 	render.DrawLine(pos, pos + ang:Up() * 20, Color(0, 0, 255))
+							-- end
 						end
 					end
 			end

@@ -1,29 +1,27 @@
-local HeightLine = 26
+meta.ui.scoreboard = meta.ui.scoreboard or {}
+meta.ui.scoreboard.players = {}
 
-
-local mat_wrench = Material('icons/wrench.png', 'noclamp smooth')
-local mat_star = Material('icons/star.png', 'noclamp smooth')
-local mat_key = Material('icons/key.png', 'noclamp smooth')
-local mat_case = Material('icons/case.png', 'noclamp smooth')
-local mat_hammer = Material('icons/hammer.png', 'noclamp smooth')
-local mat_lines = Material('icons/lines.png', 'noclamp smooth')
+local scoreboard = meta.ui.scoreboard
 
 local tblIconsGroups = {
-	['founder'] = { col = Color(220,220,220,255), symbol = 'Основатель' },
-    ['serverstaff'] = { col = Color(190,190,190,255), symbol = 'Персонал Сервера' },
-    ['moderator'] = { col = Color(190,190,190,255), symbol = 'Модератор' },
-	['apollo'] = { col = Color(190,190,190,255), symbol = 'Апполион'},
-    ['thaumiel'] = { col = Color(190,190,190,255), symbol = 'Таумиель'},
-    ['afina'] = { col = Color(190,190,190,255), symbol = 'Афина'},
-    ['sponsor'] = { col = Color(190,190,190,255), symbol = 'Афина'},
-    ['premium'] = { col = Color(190,190,190,255), symbol = 'Кетер'},
-    ['keter'] = { col = Color(190,190,190,255), symbol = 'Кетер'},
-    ['euclid'] = { col = Color(190,190,190,255), symbol = 'Евклид'},
-    ['commander'] = { col = Color(190,190,190,255), symbol = 'Коммандер'},
-    ['user'] = { col = Color(190,190,190,255), symbol = 'Игрок'},
+	['founder'] = { col = Color(245,245,245,255), symbol = 'Основатель' },
+	['serverstaff'] = { col = Color(230,230,230,255), symbol = 'Персонал Сервера' },
+	['moderator'] = { col = Color(230,230,230,255), symbol = 'Модератор' },
+	['apollo'] = { col = Color(230,230,230,255), symbol = 'Апполион'},
+	['thaumiel'] = { col = Color(230,230,230,255), symbol = 'Таумиель'},
+	['afina'] = { col = Color(230,230,230,255), symbol = 'Афина'},
+	['sponsor'] = { col = Color(230,230,230,255), symbol = 'Афина'},
+	['premium'] = { col = Color(230,230,230,255), symbol = 'Кетер'},
+	['keter'] = { col = Color(230,230,230,255), symbol = 'Кетер'},
+	['euclid'] = { col = Color(230,230,230,255), symbol = 'Евклид'},
+	['commander'] = { col = Color(230,230,230,255), symbol = 'Коммандер'},
+	['user'] = { col = Color(230,230,230,255), symbol = 'Игрок'},
 	-- ['admin'] = { col = Color(190,190,190,255), symbol = '★', name = 'Администратор' },
 	-- ['superadmin'] = { col = Color(190,190,190,255), symbol = '★', name = 'Главный Администратор' }
 }
+
+team.SetColor( 0, Color(131,138,142) )
+team.SetColor( 1001, Color(131,138,142) )
 
 local function timeToStr( time )
 	local tmp = time
@@ -54,283 +52,297 @@ local function get_admins_count()
 	return adminsonline
 end
 
-team.SetColor( 0, Color(131,138,142) )
-team.SetColor( 1001, Color(131,138,142) )
+local logo = Material('gamemodes/sandbox/logo.png', 'smooth noclamp')
+local function OpenScoreboard()
+	local line_front = markup.Parse(string.format('<font=font_base_22><colour=255, 255, 255, 255>Онлайн: <colour=175, 175, 175, 255>%s</colour> из <colour=175, 175, 175, 255>%s</colour> игроков / Администрация: <colour=175, 175, 175, 255>%s</colour> / Карта: <colour=175, 175, 175, 255>%s</colour></colour></colour></font>',
+		#player.GetAll(),
+		game.MaxPlayers(),
+		#get_admins_count(),
+		game.GetMap()
+	))
 
-local MainPanel, Main
-local alpha, alpha_lerp = 0, 0
-function ScoreboardOpen()
-	if not IsValid(Main) then
-        alpha = 160
+	local main = vgui.Create('Panel')
+	main:SetSize(ScrW(), ScrH())
+	main:Center()
+	main:SetAlpha( 0 )
+	main:AlphaTo( 255, .1, 0 )
 
-		LocalPlayer().Scoreboard = true
-		Main = vgui.Create("DFrame")
-		Main:SetSize(ScrW(),ScrH())
-		Main:SetPos((ScrW()-Main:GetWide())/2,(ScrH()-Main:GetTall())/2)
-		Main:SetTitle('')
+	meta.ui.scoreboard.panel = main
 
-        local line_front = markup.Parse(string.format('<font=font_base_22><colour=255, 255, 255, 255>Онлайн: <colour=175, 175, 175, 255>%s</colour> из <colour=175, 175, 175, 255>%s</colour> игроков / Администрация: <colour=175, 175, 175, 255>%s</colour> / Карта: <colour=175, 175, 175, 255>%s</colour></colour></colour></font>',
-            #player.GetAll(),
-            game.MaxPlayers(),
-            #get_admins_count(),
-            game.GetMap()
-        ))
-		-- Main:Center()
-		Main:SetDraggable(false)
-		Main:ShowCloseButton(false)
-		Main.Paint = function( self, w, h )
-			alpha_lerp = Lerp(FrameTime()*6,alpha_lerp or 0,alpha or 0) or 0
+	local center = vgui.Create('Panel', main)
+	center:SetSize(ScrW()*.8, ScrH()*.75)
+	center:SetPos(main:GetWide()*.5-center:GetWide()*.5, main:GetTall()*.5-center:GetTall()*.5+46 )
 
-            local x, y = self:GetPos()
-            -- print(alpha_lerp)
-            -- if alpha_lerp/100 > 1 then
-            --     draw.DrawBlur( x, y, self:GetWide(), self:GetTall(), alpha_lerp/100 )
-            -- end
+	main.Paint = function( self, w, h )
+		draw.DrawBlur(0, 0, w, h, 6)
+		line_front:Draw( self:GetWide()*.5 - ScrW()*.8*.5, main:GetTall()*.5-center:GetTall()*.5+46+center:GetTall(), 0, 0 )
 
-            draw.RoundedBox(0,0,0,w,h,Color(0, 0, 0, 180))
+		draw.Icon( w*.5-(322/2), h*.5-128*.5 - ScrH()*.8*.5-10, 322, 128, logo )
+	end
 
-            line_front:Draw( Main:GetWide()*.5 - (Main:GetWide()/1.4)*.5, Main:GetTall()*.5 - (Main:GetTall()/1.2)*.5, 0, 0 )
+	local DCollapsible = vgui.Create( "DCategoryList", center )
+	DCollapsible:Dock( FILL )
+	DCollapsible.Paint = function( self, w, h )
+
+	end
+
+	DCollapsible.VBar:SetWide(0)
+
+	local team_players = {}
+
+	for g, pl in pairs(player.GetAll()) do
+		local t = pl:Team()
+		team_players[t] = team_players[t] or { players = {} }
+		table.insert(team_players[t].players, pl)
+
+		if not team_players[t].panel then
+			local cat = DCollapsible:Add('')
+			team_players[t].panel = cat
+			cat.Header.Paint = function( self, w, h ) end
+			cat.Header:SetFont( "font_base_small" )
+			cat:SetTall(20)
+			cat.Paint = function( self, w, h )
+				draw.RoundedBox(3, 0, 0, w, 18, ColorAlpha(team.GetColor(t), 180))
+				draw.SimpleText( 'Звание:', "font_base_small", w/2 - w/5, 18/2, Color( 255, 255, 255, 90 ), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER )
+				draw.SimpleText( 'Привилегия:', "font_base_small", w/2 + w/5, 18/2, Color( 255, 255, 255, 90 ), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER )
+				draw.SimpleText( 'У / С', "font_base_small", w/2 + w/3, 18/2, Color( 255, 255, 255, 90 ), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER )
+				draw.SimpleText( team.GetName(t), "font_base_small", 4, 18/2, Color( 255, 255, 255, 200 ), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER )
+				draw.SimpleText( team.NumPlayers(t), "font_base_small", w - 4, 18/2, Color( 255, 255, 255, 200 ), TEXT_ALIGN_RIGHT, TEXT_ALIGN_CENTER )
+			end
 		end
+	end
 
-        MainPanel = vgui.Create('DScrollPanel', Main)
-        MainPanel:SetSize(Main:GetWide()/1.4,Main:GetTall()/1.2)
-        MainPanel:SetPos(Main:GetWide()*.5 - MainPanel:GetWide()*.5, Main:GetTall()*.5 - MainPanel:GetTall()*.5)
+	for i, tm in pairs(team_players) do
+		local layout = vgui.Create("DListLayout", panel)
+		layout:Dock(FILL)
 
-        MainPanel.Paint = function( self, w, h )
-            -- line_front:Draw( 0, 0, 0, 0 )
-            -- draw.SimpleText('Сейчас играет '..#player.GetAll()..' из '..game.MaxPlayers()..' игроков. Текущая карта '..game.GetMap(), "font_base_22", 0, 0, color_white, 0, 0)
-        end
+		for i, pl in ipairs(tm.players) do
+			if pl and IsValid(pl) then
 
-        MainPanel.VBar:SetWide(0)
+				local btn = vgui.Create('DButton', layout)
+				btn:SetText('')
 
-        local DCollapsible = vgui.Create( "DCategoryList", MainPanel )
-        DCollapsible:SetSize( MainPanel:GetWide(), MainPanel:GetTall() )
-        DCollapsible:SetPos( 0, 30 )
-        DCollapsible.Paint = function( self, w, h )
+				if scoreboard.players[pl] then
+					btn:SetTall(88)
+					btn.toggle = true
+				else
+					btn:SetTall(28)
+				end
 
-        end
+				btn:DockMargin(0, 1, 0, 0)
 
-        -- local layout = vgui.Create( "DListLayout" )
-        -- layout:SetSize( DCollapsible:GetWide(), DCollapsible:GetTall() )
-        -- layout:SetPos( 0, 0 )
-        -- DCollapsible:SetContents( layout )
+				btn.DoRightClick = function( self )
+					if not IsValid(pl) then return end
+					local rankData = serverguard.ranks:GetRank(serverguard.player:GetRank(LocalPlayer()))
+					local commands = serverguard.command:GetTable()
 
-        local players = player.GetAll()
-        -- table.sort(players, function(a, b)
-		-- 	return a:Team() < b:Team()
-		-- end)
+					local bNoAccess = true
+					local menu = DermaMenu(Main);
+					menu:SetSkin("serverguard");
+					menu:AddOption("Открыть профиль Steam", function()
+						pl:ShowProfile()
+					end):SetIcon("icon16/group_link.png");
+					menu:AddOption(timeToStr( tonumber(pl:GetUTimeTotalTime()) ), function()
+						pl:ShowProfile()
+					end):SetIcon("icon16/clock.png");
+					menu:AddSpacer()
+					menu:AddOption("Скопировать SteamID", function()
+						SetClipboardText(pl:SteamID());
+					end):SetIcon("icon16/page_copy.png");
+					menu:AddOption("Скопировать SteamID64", function()
+						SetClipboardText(pl:SteamID64());
+					end):SetIcon("icon16/page_copy.png");
+					menu:AddOption("Скопировать ник", function()
+						SetClipboardText(pl:Name());
+					end):SetIcon("icon16/page_copy.png");
 
-        local team_players = {}
+					menu:AddSpacer()
+					local sub_commands = menu:AddSubMenu("Администрирование")
+					for unique, data in pairs(commands) do
+						if (data.ContextMenu and (!data.permissions or serverguard.player:HasPermission(LocalPlayer(), data.permissions))) then
+							data:ContextMenu(pl, sub_commands, rankData); bNoAccess = false;
+						end;
+					end;
+					menu:Open();
+				end
+				
 
-        for g, pl in pairs(players) do
-            local t = pl:Team()
-            team_players[t] = team_players[t] or { players = {} }
-            table.insert(team_players[t].players, pl)
+				btn.DoClick = function( self )
+					btn:SizeTo( btn:GetWide(), self.toggle and 28 or 88, .1, 0, 1)
+					self.toggle = not self.toggle
+					scoreboard.players[pl] = self.toggle
+					surface.PlaySound('sup_sound/scroll.wav')
+				end
 
-            if not team_players[t].panel then
-                local cat = DCollapsible:Add('')
-                team_players[t].panel = cat
-                cat.Header.Paint = function( self, w, h ) end
-                cat.Header:SetFont( "font_base_small" )
-                cat:SetTall(20)
-                cat.Paint = function( self, w, h )
-                    draw.RoundedBox(0, 0, 0, w, 18, ColorAlpha(team.GetColor(t), 255))
-                    draw.SimpleText( 'Ранг:', "font_base_small", w/2 - w/5, 18/2, Color( 255, 255, 255, 90 ), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER )
-                    draw.SimpleText( 'Группа:', "font_base_small", w/2 + w/5, 18/2, Color( 255, 255, 255, 90 ), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER )
-                    draw.SimpleText( 'У / С', "font_base_small", w/2 + w/3, 18/2, Color( 255, 255, 255, 90 ), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER )
-                    draw.SimpleText( team.GetName(t), "font_base_small", 4, 18/2, Color( 255, 255, 255, 200 ), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER )
-                    draw.SimpleText( team.NumPlayers(t), "font_base_small", w - 4, 18/2, Color( 255, 255, 255, 200 ), TEXT_ALIGN_RIGHT, TEXT_ALIGN_CENTER )
-                end
-            end
-        end
+				local t = pl:Team()
+				local team_color = team.GetColor(t)
+				local team_name = team.GetName(t)
+				local name = pl:Name()
+				local steam_name = pl:OldName()
+				local col = ColorAlpha(team_color, 255)
+				local money = pl:PS_GetPoints()
+				local group = pl:GetUserGroup()
+				local steamid = pl:SteamID()
+				local time = timeToStr(tonumber(pl:GetUTimeTotalTime()))
 
-        for i, tm in pairs(team_players) do
-            local layout = vgui.Create( "DListLayout" )
-            layout:SetSize( DCollapsible:GetWide(), DCollapsible:GetTall() )
-            layout:SetPos( 0, 0 )
+				local rank = pl:GetNWString('meta_rank')
+				local frags, deaths = pl:Frags(), pl:Deaths()
 
-            for i, pl in pairs(tm.players) do
-                local PlayerPanel = vgui.Create('DButton')
-                PlayerPanel:SetTall(30)
-                PlayerPanel:SetWide(MainPanel:GetWide())
-                PlayerPanel:SetText('')
-                PlayerPanel.Paint = function( self, w, h )
-                    if not pl or not IsValid(pl) then
-                        return
-                    end
+				local ping = pl:Ping() or 0
 
-                    local pcol = team.GetColor(pl:Team())
-                    h = 28
-                    if pl and pcol then
-                        draw.RoundedBox(0,0,0,w,h,Color(pcol.r, pcol.g, pcol.b, 255))
+				btn.Paint = function( self, w, h )
+					local toggle = self:GetTall() ~= 28
 
-                        local rpid = pl:GetRPID()
-                        -- rpid = (rpid and rpid ~= '') and ' '..rpid..'' or '   ----  '
-                        if rpid and rpid ~= '' then
-                            local id = rpid
-                            for i = 1, (4-#tostring(id)) do id = '0'..id end
+					ping = pl:Ping() or 0
 
-                            rpid = ' '..id..''
-                        else
-                            rpid = '   ----  '
-                        end
+					draw.RoundedBoxEx(3, 0, 0, w, 28, col or color_white, true, true, not toggle, not toggle)
+					draw.ShadowText(name, "font_notify", 32, 4, Color( 247, 247, 247, 255 ), Color(0,0,0,40), 1, TEXT_ALIGN_LEFT, TEXT_ALIGN_TOP)
+					-- draw.ShadowText(team_name, "font_notify", w*.5, 4, Color( 247, 247, 247, 255 ), Color(0,0,0,40), 1, TEXT_ALIGN_CENTER, TEXT_ALIGN_TOP)
+					-- if money then
+					-- 	draw.ShadowText(money..' Рк', "font_notify", w*.75, 4, Color( 247, 247, 247, 255 ), Color(0,0,0,40), 1, TEXT_ALIGN_CENTER, TEXT_ALIGN_TOP)
+					-- end
 
+					if rank then
+						draw.SimpleText(rank, "font_notify", w/2 - w/5 , 14, Color( 255, 255, 255, 255 ), 1, 1)
+					end
 
-                        local tm = pl:Team()
-                        local rank = pl:GetNWString('meta_rank')
+					if tblIconsGroups[pl:GetUserGroup()] then
+						local group_data = tblIconsGroups[pl:GetUserGroup()]
+						-- PrintTable(group_data)
+						surface.SetFont('font_notify')
+						wgr, _ = surface.GetTextSize(group_data.symbol..' ')
 
-                        surface.SetFont('font_base_22')
-                        -- print(pl, pl:Name())
-                        local name = pl:Name() or pl:GetNWString( "rpname" )
-                        local wrt, _ = surface.GetTextSize(' '..name)
+						draw.SimpleText(group_data.symbol, "font_notify", w/2 + w/5, 14, group_data.col, 1, 1)
+					end
 
-                        draw.RoundedBox(0, 28, 0, wrt+8, h, Color(pcol.r-12,pcol.g-12,pcol.b-12,255))
+					draw.SimpleText(frags..', '..deaths, "font_notify", w/2 + w/3, 14, Color( 255, 255, 255, 190 ), 1, 1)
 
-                        surface.SetFont('font_base_22')
-                        local wgr = 0
+					draw.ShadowText(ping, "font_notify", w-4-26, 4, Color( 247, 247, 247, 255 ), Color(0,0,0,40), 1, TEXT_ALIGN_RIGHT, TEXT_ALIGN_TOP)
+					local pgcol = ping < 100 and Color(119,184,0) or ping < 200 and Color(255,165,0) or Color(214,45,32)
+					draw.RoundedBox(0, w-10, 4, 6, 20, pgcol)
+					draw.RoundedBox(0, w-17, 9, 6, 15, pgcol)
+					draw.RoundedBox(0, w-24, 14, 6, 10, pgcol)
 
-                        -- if not HIDE_NICKS_RANKS[rank] or LocalPlayer():IsAdmin() then
-                        --     local name = pl:GetNWString( "rpname" )
-                        --     draw.SimpleText(name, "font_base_22", wrt+34+wgr+1, h/2+1, Color( 0, 0, 0, 60 ), 0, 1)
-                        --     draw.SimpleText(name, "font_base_22", wrt+34+wgr, h/2, Color( 255, 255, 255, 250 ), 0, 1)
-                        -- end
+					if toggle then
+						draw.RoundedBoxEx(3, 0, 28, w, h-28, Color(col.r-10, col.g-10, col.b-10) or color_white, false, false, true, true)
+					end
+				end
 
-                        draw.SimpleText(name, "font_base_22", 34 +1, h/2+1, Color( 0, 0, 0, 60 ), 0, 1)
-                        draw.SimpleText(name, "font_base_22", 34 , h/2, Color( 255, 255, 255, 240 ), 0, 1)
+				btn.Think = function()
+					if not (pl and IsValid(pl)) then
+						btn:Remove()
+					end
+				end
+				
 
-                        -- if LocalPlayer():IsAdmin() then
-                            draw.SimpleText(pl:OldName(), "font_notify", w/2 +1, h/2+1, Color( 0, 0, 0, 60 ), 1, 1)
-                            draw.SimpleText(pl:OldName(), "font_notify", w/2 , h/2, Color( 230, 230, 230, 240 ), 1, 1)
-                        -- end
+				local avatar = vgui.Create( "AvatarImage", btn )
+				avatar:SetSize( 28, 28 )
+				avatar:SetPos( 0, 0 )
+				avatar:SetPlayer( pl, 64 )
 
-                        if rank then
-                            draw.SimpleText(rank, "font_notify", w/2 - w/5 +1, h/2+1, Color( 0, 0, 0, 60 ), 1, 1)
-                            draw.SimpleText(rank, "font_notify", w/2 - w/5 , h/2, Color( 255, 255, 255, 255 ), 1, 1)
-                        end
+				local line = vgui.Create( "DPanel", btn )
+				line:SetSize( 250, 24 )
+				line:SetPos( 6, 32 )
+				line.Paint = function( self, w, h )
+					draw.SimpleText( 'Имя: '..name, "font_base_18", 0, h*.5, Color( 255, 255, 255, 255 ), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER)
+				end
 
-            
-                        draw.SimpleText(pl:Frags()..', '..pl:Deaths(), "font_notify", w/2 + w/3 +1, h/2+1, Color( 0, 0, 0, 60 ), 1, 1)
-                        draw.SimpleText(pl:Frags()..', '..pl:Deaths(), "font_notify", w/2 + w/3 , h/2, Color( 255, 255, 255, 190 ), 1, 1)
-                
+				local line = vgui.Create( "DPanel", btn )
+				line:SetSize( 250, 24 )
+				line:SetPos( 6, 56 )
+				line.Paint = function( self, w, h )
+					draw.SimpleText( 'Группа: '..tblIconsGroups[group].symbol, "font_base_18", 0, h*.5, Color( 255, 255, 255, 255 ), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER)
+				end
 
-                        if tblIconsGroups[pl:GetUserGroup()] then
-                            local group_data = tblIconsGroups[pl:GetUserGroup()]
-                            -- PrintTable(group_data)
-                            surface.SetFont('font_notify')
-                            wgr, _ = surface.GetTextSize(group_data.symbol..' ')
+				local line = vgui.Create( "DPanel", btn )
+				line:SetSize( 250, 24 )
+				line:SetPos( 256, 32 )
+				line.Paint = function( self, w, h )
+					draw.SimpleText( 'Steam: '..steam_name, "font_base_18", 0, h*.5, Color( 255, 255, 255, 255 ), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER)
+				end
 
-                            draw.SimpleText(group_data.symbol, "font_notify", w/2 + w/5 +1, h/2+1, Color( 0, 0, 0, 60 ), 1, 1)
-                            draw.SimpleText(group_data.symbol, "font_notify", w/2 + w/5, h/2, group_data.col, 1, 1)
-                        end
+				local line = vgui.Create( "DPanel", btn )
+				line:SetSize( 250, 24 )
+				line:SetPos( 256, 56 )
+				line.Paint = function( self, w, h )
+					draw.SimpleText( 'SteamID: ', "font_base_18", 0, h*.5, Color( 255, 255, 255, 255 ), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER)
+				end
 
-                        if self:IsHovered() then
-                            draw.RoundedBox(0,0,0,w,h,Color(230, 230, 230, 4))
-                        end
-                    end
+				local hover = vgui.Create( "DButton", line )
+				hover:SetSize( 185, 24 )
+				hover:SetPos( 65, 0 )
+				hover:SetText('')
+				hover.Paint = function( self, w, h )
+					draw.SimpleText( steamid, "font_base_18", 0, h*.5, self:IsHovered() and Color( 51, 153, 255, 255 ) or Color( 91, 173, 255, 255 ), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER)
+				end
+				hover.DoClick = function()
+					SetClipboardText(steamid)
+				end
 
-                    draw.RoundedBox(0, w-10+1, 4+1, 6, 20, Color(0,0,0,60))
-                    draw.RoundedBox(0, w-17+1, 9+1, 6, 15, Color(0,0,0,60))
-                    draw.RoundedBox(0, w-24+1, 14+1, 6, 10, Color(0,0,0,60))
+				local line = vgui.Create( "DPanel", btn )
+				line:SetSize( 250, 24 )
+				line:SetPos( 506, 32 )
+				line.Paint = function( self, w, h )
+					if pl:IsBot() or not rank then return end
+					draw.SimpleText( 'Звание: '..rank, "font_base_18", 0, h*.5, Color( 255, 255, 255, 255 ), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER)
+				end
 
-                    local pg = pl:Ping()
-                    local pgcol = pl:Ping() < 100 and Color(119,184,0) or pg < 200 and Color(255,165,0) or Color(214,45,32)
-                    draw.RoundedBox(0, w-10, 4, 6, 20, pgcol)
-                    draw.RoundedBox(0, w-17, 9, 6, 15, pgcol)
-                    draw.RoundedBox(0, w-24, 14, 6, 10, pgcol)
+				local line = vgui.Create( "DPanel", btn )
+				line:SetSize( 250, 24 )
+				line:SetPos( 506, 56 )
+				line.Paint = function( self, w, h )
+					draw.SimpleText( 'Легион: '..team_name, "font_base_18", 0, h*.5, Color( 255, 255, 255, 255 ), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER)
+				end
 
-                    -- draw.SimpleText(pg, "font_base_22", w - 30 +1, h/2+1, Color( 0, 0, 0, 60 ), 2, 1)
-                    -- draw.SimpleText(pg, "font_base_22", w - 30 , h/2, Color( 255, 255, 255, 255 ), 2, 1)
-                end
+				local line = vgui.Create( "DPanel", btn )
+				line:SetSize( 250, 24 )
+				line:SetPos( 756, 32 )
+				line.Paint = function( self, w, h )
+					if not ping then return end
+					draw.SimpleText( 'Пинг: '..ping..'ms', "font_base_18", 0, h*.5, Color( 255, 255, 255, 255 ), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER)
+				end
 
-                PlayerPanel.DoClick = function( self )
-                    if not IsValid(pl) then return end
-                    local rankData = serverguard.ranks:GetRank(serverguard.player:GetRank(LocalPlayer()))
-                    local commands = serverguard.command:GetTable()
+				local line = vgui.Create( "DPanel", btn )
+				line:SetSize( 250, 24 )
+				line:SetPos( 756, 56 )
+				line.Paint = function( self, w, h )
+					if not time then return end
+					draw.SimpleText( 'Время: '..time, "font_base_18", 0, h*.5, Color( 255, 255, 255, 255 ), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER)
+				end
 
-                    local bNoAccess = true
-                    local menu = DermaMenu(Main);
-                    menu:SetSkin("serverguard");
-                    menu:AddOption("Открыть профиль Steam", function()
-                        pl:ShowProfile()
-                    end):SetIcon("icon16/group_link.png");
-                    menu:AddOption(timeToStr( tonumber(pl:GetUTimeTotalTime()) ), function()
-                        pl:ShowProfile()
-                    end):SetIcon("icon16/clock.png");
-                    menu:AddSpacer()
-                    menu:AddOption("Скопировать SteamID", function()
-                        SetClipboardText(pl:SteamID());
-                    end):SetIcon("icon16/page_copy.png");
-                    menu:AddOption("Скопировать SteamID64", function()
-                        SetClipboardText(pl:SteamID64());
-                    end):SetIcon("icon16/page_copy.png");
-                    menu:AddOption("Скопировать ник", function()
-                        SetClipboardText(pl:Name());
-                    end):SetIcon("icon16/page_copy.png");
+				local line = vgui.Create( "DPanel", btn )
+				line:SetSize( 250, 24 )
+				line:SetPos( 756+250, 32 )
+				line.Paint = function( self, w, h )
+					if not money then return end
+					draw.SimpleText( 'РК: '..string.Comma(money)..'', "font_base_18", 0, h*.5, Color( 255, 255, 255, 255 ), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER)
+				end
 
-                    menu:AddSpacer()
-                    local sub_commands = menu:AddSubMenu("Администрирование")
-                    for unique, data in pairs(commands) do
-                        if (data.ContextMenu and (!data.permissions or serverguard.player:HasPermission(LocalPlayer(), data.permissions))) then
-                            data:ContextMenu(pl, sub_commands, rankData); bNoAccess = false;
-                        end;
-                    end;
-                    menu:Open();
-                end
-
-                local Avatar = vgui.Create( "AvatarImage", PlayerPanel )
-                Avatar:SetSize( 28, 28 )
-                Avatar:SetPos( 0, 0 )
-                Avatar:SetPlayer( pl, 64 )
-
-                layout:Add( PlayerPanel )
-            end
-
-            tm.panel:SetContents( layout )
-        end
+				-- layout:Add(panel)
+				tm.panel:SetContents( layout )
+			end
+		end
 	end
 end
 
-function ScoreboardClose()
-	if IsValid(Main) then
-		Main:Close()
-		LocalPlayer().Scoreboard = false
-        gui.EnableScreenClicker(false)
-	end
-end
 
-function GM:ScoreboardShow()
-	ScoreboardOpen()
-
-	if IsValid(Main) then
-		Main:Show()
-		-- Main:MakePopup()
-        gui.EnableScreenClicker(true)
-		Main:SetKeyboardInputEnabled(true)
-	end
-end
-
-function GM:ScoreboardHide()
-    if MainPanel and IsValid(MainPanel) then
-        MainPanel:Remove()
-    end
-	if IsValid(Main) then
-        Main:SetKeyboardInputEnabled(false)
-        LocalPlayer().Scoreboard = false
-
-        alpha = 0
-        -- timer.Simple(FrameTime()*6*8, function()
-		    ScoreboardClose()
-        -- end)
-        gui.EnableScreenClicker(false)
-	end
-end
-
-hook.Add('OnReloaded','CloseScoreboard_OnReloaded',function()
-    if MainPanel and IsValid(MainPanel) then
-        MainPanel:Remove()
-    end
-    if Main and IsValid(Main) then
-        Main:Remove()
-    end
-    ScoreboardClose()
+hook.Add('ScoreboardShow', 'meta_Scoreboard', function()
+	gui.EnableScreenClicker( true )
+	OpenScoreboard()
+	surface.PlaySound('sup_sound/on.ogg')
 end)
+
+hook.Add('ScoreboardHide', 'meta_Scoreboard', function()
+	local main = scoreboard.panel
+
+	if main and IsValid(main) then
+		gui.EnableScreenClicker( false )
+		surface.PlaySound('sup_sound/off.ogg')
+
+		main:AlphaTo( 0, .1, 0, function()
+			main:Remove()
+		end )
+	end
+end)
+
+function GM:ScoreboardShow() end

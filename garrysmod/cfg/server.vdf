@@ -122,4 +122,5 @@
 	"lfs_disable_admin_notify_ai"		"0"
 	"rpw_binoculars_hold"		"1"
 	"lfs_disable_all_overhaul_settings"		"0"
+	"snte_banmethod"		"base"
 }

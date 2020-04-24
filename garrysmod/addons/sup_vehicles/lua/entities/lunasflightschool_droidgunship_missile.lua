@@ -155,7 +155,7 @@ if SERVER then
 	end
 
 	function ENT:OnTakeDamage( dmginfo )	
-		if dmginfo:GetDamageType() ~= DMG_AIRBOAT then return end
+		if dmginfo:GetDamageType() ~= DMG_BLAST then return end
 		
 		if self:GetAttacker() == dmginfo:GetAttacker() then return end
 		

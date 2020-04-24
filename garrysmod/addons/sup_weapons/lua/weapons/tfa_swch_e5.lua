@@ -40,17 +40,17 @@ SWEP.AutoSwitchFrom = false
 local FireSound = Sound 'blaster.e5_fire'
 local ReloadSound = Sound 'weapons/E5_reload.wav'
 
-SWEP.Primary.Recoil = 0.5
-SWEP.Primary.Damage = 68
+SWEP.Primary.Recoil = 0.001
+SWEP.Primary.Damage = 80
 SWEP.Primary.NumShots = 1
-SWEP.Primary.Cone = 0.02
+SWEP.Primary.Cone = 0.01
 SWEP.Primary.ClipSize = 150
-SWEP.Primary.Delay = 0.275
+SWEP.Primary.Delay = 0.100
 SWEP.Primary.DefaultClip = 150
 SWEP.Primary.Automatic = true
 SWEP.Primary.Ammo = 'ar2' 
 SWEP.Primary.Tracer = 'sup_laser_red'
-SWEP.Secondary.Automatic = false
+SWEP.Secondary.Automatic = true
 SWEP.Secondary.Ammo = 'none'
 SWEP.IronSightsPos = Vector (-4.8, -4, 0.6)
 

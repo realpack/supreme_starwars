@@ -25,7 +25,7 @@ ENT.SeatPos = Vector(120,0,80)
 --ENT.SeatPos = Vector(-25,0,20)
 ENT.SeatAng = Angle(0,-90,0)
 
-ENT.MaxHealth = 20000
+ENT.MaxHealth = 25000
 ENT.MoveSpeed = 60
 ENT.BoostSpeed = 150
 ENT.LerpMultiplier = 0.8

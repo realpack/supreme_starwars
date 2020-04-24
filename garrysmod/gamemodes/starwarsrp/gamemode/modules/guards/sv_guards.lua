@@ -48,7 +48,7 @@ netstream.Hook('SendCommandDefcon', function(pPlayer, data)
 
         SetGlobalString('meta_defcon', name)
         if DEFCON_TYPES[name].sound then
-            BroadcastLua( "surface.PlaySound('"..DEFCON_TYPES[name].sound.."')" )
+            BroadcastLua( "surface.PlaySound('"..DEFCON_TYPES[name].sound.."') surface.PlaySound('sup_sound/jw-loop.wav')" )
         end
 
         meta.defcon_cooldown = false

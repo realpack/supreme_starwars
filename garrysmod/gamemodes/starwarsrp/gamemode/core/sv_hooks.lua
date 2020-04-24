@@ -98,8 +98,8 @@ function GM:PlayerLoadout( pPlayer )
         feature_weapons = (team.FeatureRanks and team.FeatureRanks[rank].weapons) and team.FeatureRanks[rank].weapons or {}
     end
 
-    print(feature_weapons)
-    PrintTable(feature_weapons)
+    -- print(feature_weapons)
+    -- PrintTable(feature_weapons)
 
 	for _, wep in pairs(feature_weapons) do
 		pPlayer:Give(wep)

@@ -502,18 +502,18 @@ end
 
 if (CLIENT) then
 
-	SWEP.PrintName 			= "Flashbang"
+	SWEP.PrintName 			= "EMP Grenade"
 	SWEP.Slot 				= 4
 	SWEP.SlotPos 			= 1
 	SWEP.DrawAmmo 			= true
 	SWEP.DrawCrosshair 		= true
-	SWEP.ViewModelFOV			= 60
+	SWEP.ViewModelFOV			= 72
 	SWEP.ViewModelFlip		= false
 	SWEP.CSMuzzleFlashes		= false
 	SWEP.Category			= "Star Wars Grenades"
 	
-	SWEP.IconLetter 		= "P"
-	killicon.AddFont("ptp_weapon_flash", "CSKillIcons", SWEP.IconLetter, Color( 20, 20, 255, 255 ))
+	SWEP.IconLetter 			= "O"
+	killicon.AddFont("ptp_weapon_grenade", "CSKillIcons", SWEP.IconLetter, Color( 255, 80, 0, 255 ))
 end
 
 
@@ -528,7 +528,7 @@ SWEP.Spawnable 				= true
 SWEP.AdminSpawnable 			= true
 
 SWEP.ViewModel 				= "models/weapons/cstrike/c_eq_smokegrenade.mdl"
-SWEP.WorldModel 			= "models/zeus/w_smokegrenade1.mdl"
+SWEP.WorldModel 			= "models/t3m4/empunprimed.mdl"
 SWEP.UseHands				= true
 
 SWEP.Primary.ClipSize 			= 1
@@ -552,7 +552,7 @@ function SWEP:ThrowFar()
 
 	if (!SERVER) then return end
 
-	local ent = ents.Create ("zeus_flashb")
+	local ent = ents.Create ("t3m4_ent_empgrenade")
 
 			local v = self.Owner:GetShootPos()
 				v = v + self.Owner:GetForward() * 1
@@ -568,15 +568,15 @@ function SWEP:ThrowFar()
 	if !IsValid(phys) then self.Weapon:SendWeaponAnim(ACT_VM_DRAW) self.Primed = 0 return end
 
 	if self.Owner:KeyDown( IN_FORWARD ) then
-		self.Force = 1100
+		self.Force = 1000
 	elseif self.Owner:KeyDown( IN_BACK ) then
-		self.Force = 1100
+		self.Force = 1000
 	elseif self.Owner:KeyDown( IN_MOVELEFT ) then
-		self.Force = 1100
+		self.Force = 1000
 	elseif self.Owner:KeyDown( IN_MOVERIGHT ) then
-		self.Force = 1100
+		self.Force = 1000
 	else
-		self.Force = 950
+		self.Force = 1000
 	end
 
 	phys:ApplyForceCenter(self.Owner:GetAimVector() *self.Force *1.2 + Vector(0,0,200) )
@@ -610,7 +610,7 @@ function SWEP:ThrowShort()
 
 	if (!SERVER) then return end
 
-	local ent = ents.Create ("zeus_flashb")
+	local ent = ents.Create ("t3m4_ent_empgrenade")
 
 			local v = self.Owner:GetShootPos()
 				v = v + self.Owner:GetForward() * 2
@@ -626,15 +626,15 @@ function SWEP:ThrowShort()
 	if !IsValid(phys) then self.Weapon:SendWeaponAnim(ACT_VM_DRAW) self.Primed = 0 return end
 
 	if self.Owner:KeyDown( IN_FORWARD ) then
-		self.Force = 225
+		self.Force = 250
 	elseif self.Owner:KeyDown( IN_BACK ) then
-		self.Force = 225
+		self.Force = 250
 	elseif self.Owner:KeyDown( IN_MOVELEFT ) then
-		self.Force = 225
+		self.Force = 250
 	elseif self.Owner:KeyDown( IN_MOVERIGHT ) then
-		self.Force = 225
+		self.Force = 250
 	else
-		self.Force = 200
+		self.Force = 250
 	end
 
 	phys:ApplyForceCenter(self.Owner:GetAimVector() * self.Force * 2 + Vector(0, 0, 0))
@@ -660,18 +660,21 @@ end
 SWEP.ShowViewModel = true
 SWEP.ShowWorldModel = false
 SWEP.ViewModelBoneMods = {
-	["v_weapon.Flashbang_Parent"] = { scale = Vector(0.009, 0.009, 0.009), pos = Vector(-30, 0, 0), angle = Angle(0, 0, 0) }
+	["ValveBiped.Bip01_R_Finger41"] = { scale = Vector(1, 1, 1), pos = Vector(0, 0, 0), angle = Angle(12.222, 0, 0) },
+	["v_weapon.Flashbang_Parent"] = { scale = Vector(0.009, 0.009, 0.009), pos = Vector(-30, 0, 0), angle = Angle(0, 0, 0) },
+	["ValveBiped.Bip01_R_Hand"] = { scale = Vector(1, 1, 1), pos = Vector(0, 0, 0), angle = Angle(3.332, -1.111, 18.888) },
+	["ValveBiped.Bip01_R_Finger01"] = { scale = Vector(1, 1, 1), pos = Vector(0, 0, 0), angle = Angle(-1.111, 1.11, 0) },
+	["ValveBiped.Bip01_Spine4"] = { scale = Vector(1, 1, 1), pos = Vector(-2.037, 0, 0), angle = Angle(0, 0, 0) },
+	["ValveBiped.Bip01_R_Finger02"] = { scale = Vector(0.904, 0.904, 0.904), pos = Vector(0, 0, 0), angle = Angle(0, 4, 0) },
+	["ValveBiped.Bip01_R_Finger0"] = { scale = Vector(1, 1, 1), pos = Vector(0, 0, 0), angle = Angle(5.556, -7.778, 12.222) },
+	["ValveBiped.Bip01_R_Finger4"] = { scale = Vector(1, 1, 1), pos = Vector(1.296, 0, 0), angle = Angle(1.11, -50, 21.111) }
 }
-
 
 SWEP.VElements = {
-	["element_name"] = { type = "Model", model = "models/zeus/fbunprimed.mdl", bone = "ValveBiped.Bip01_R_Hand", rel = "", pos = Vector(3.4, 1.899, -0.601), angle = Angle(174.156, 180, -8.183), size = Vector(0.625, 0.625, 0.625), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
+	["element_name"] = { type = "Model", model = "models/t3m4/empunprimed.mdl", bone = "ValveBiped.Bip01_R_Hand", rel = "", pos = Vector(3.635, 2, -0.519), angle = Angle(174.156, 33.895, 15.194), size = Vector(0.432, 0.432, 0.432), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
 }
-
 
 SWEP.WElements = {
-	["element_name"] = { type = "Model", model = "models/zeus/fbunprimed.mdl", bone = "ValveBiped.Bip01_R_Hand", rel = "", pos = Vector(3, 2, 0), angle = Angle(180, -90, -8.183), size = Vector(0.755, 0.755, 0.755), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
+	["element_name"] = { type = "Model", model = "models/t3m4/empunprimed.mdl", bone = "ValveBiped.Bip01_R_Hand", rel = "", pos = Vector(3, 2, -0.519), angle = Angle(-162.469, 0, 0), size = Vector(0.6, 0.6, 0.6), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
 }
-
-
 

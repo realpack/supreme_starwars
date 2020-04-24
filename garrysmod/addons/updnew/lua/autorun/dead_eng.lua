@@ -1,0 +1,1 @@
+player_manager.AddValidModel( "dead_eng", "models/dead_eng/dead_eng.mdl" )

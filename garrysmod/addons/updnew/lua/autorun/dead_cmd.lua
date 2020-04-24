@@ -1,0 +1,1 @@
+player_manager.AddValidModel( "dead_cmd", "models/dead_cmd/dead_cmd.mdl" )

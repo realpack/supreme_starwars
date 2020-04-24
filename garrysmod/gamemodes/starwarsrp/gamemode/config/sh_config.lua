@@ -44,29 +44,46 @@ CONTROLPOINT_TEAMS = {
     [CONTROL_CITIZEN] = { color = Color(255,165,0,255), name = 'Жители'}
 }
 
-SUP_ANIMATIONS = { -- Некоторые закоментил, ибо они ходят при анимации или хуево работают
-    ['tlc_animation_chest'] = { name = 'Стойка', time = 10 },
-    ['tlc_animation_otjim'] = { name = 'Отжимание', time = 20 },
-    ['tlc_animation_prised'] = { name = 'Приседание', time = 0 },
-    ['tlc_animation_sdatsya'] = { name = 'Сдаться', time = 0 }, -- Если time = 0, то анимация будет работать когда игрок не сдвитется.
-    -- ['tlc_animation_hotbizarabotalo'] = { name = '', time = 2 },
-    ['tlc_animation_stoika'] = { name = 'Стойка', time = 10 },
-    -- ['tlc_handandhok'] = { name = '', time = 2 },
-    -- ['tlc_handofbackhead'] = { name = '', time = 2 },
-    -- ['tlc_long'] = { name = '', time = 2 },
-    ['tlc_weak'] = { name = 'Слабость', time = 2 },
-    ['tlc_cleenerarms'] = { name = 'Отряхнуть Руки', time = 2 },
-    ['tlc_die'] = { name = 'Перерезать горло', time = 2 },
-    -- ['tlc_lightly_wounded'] = { name = '', time = 2 },
-    ['tlc_pafos'] = { name = 'Пафос', time = 0 },
-    ['tlc_stop_it_left'] = { name = 'Остановить', time = 0 },
-    -- ['pose_ducking01'] = { name = 'Присесть 01', time = 5 },
-    -- ['pose_ducking02'] = { name = 'Присесть 02', time = 5 },
-    -- ['pose_standing01'] = { name = 'Стойка 01', time = 5 },
-    -- ['pose_standing02'] = { name = 'Стойка 02', time = 5 },
-    -- ['pose_standing03'] = { name = 'Стойка 03', time = 5 },
-    -- ['pose_standing04'] = { name = 'Стойка 04', time = 5 },
-    ['wos_genji_dance'] = { name = 'Танец Гендзи', time = 10 },
+SUP_ANIMATIONS = { -- Если time = 0, то анимация будет работать когда игрок не сдвитется.
+	['tlc_animation_chest'] = { text = 'Стойка', time = 10 },
+	['tlc_animation_otjim'] = { text = 'Отжимание', time = 0 },
+	['tlc_animation_prised'] = { text = 'Приседание', time = 0 },
+	['tlc_animation_sdatsya'] = { text = 'Сдаться', time = 0 },
+	-- ['tlc_animation_hotbizarabotalo'] = { text = '', time = 2 },
+	['tlc_animation_stoika'] = { text = 'Стойка', time = 10 },
+	-- ['tlc_handandhok'] = { text = '', time = 2 },
+	-- ['tlc_handofbackhead'] = { text = '', time = 2 },
+	-- ['tlc_long'] = { text = '', time = 2 },
+	['tlc_weak'] = { text = 'Слабость', time = 2 },
+	['tlc_cleenerarms'] = { text = 'Отряхнуть Руки', time = 2 },
+	['tlc_die'] = { text = 'Перерезать горло', time = 2 },
+	-- ['tlc_lightly_wounded'] = { text = '', time = 2 },
+	['tlc_pafos'] = { text = 'Пафос', time = 0 },
+	['tlc_stop_it_left'] = { text = 'Остановить', time = 0 },
+	-- ['pose_ducking01'] = { text = 'Присесть 01', time = 5 },
+	-- ['pose_ducking02'] = { text = 'Присесть 02', time = 5 },
+	-- ['pose_standing01'] = { text = 'Стойка 01', time = 5 },
+	-- ['pose_standing02'] = { text = 'Стойка 02', time = 5 },
+	-- ['pose_standing03'] = { text = 'Стойка 03', time = 5 },
+	-- ['pose_standing04'] = { text = 'Стойка 04', time = 5 },
+	['wos_genji_dance'] = { text = 'Танец Гендзи', time = 10 },
+
+	['cheer'] = { taunt = ACT_GMOD_TAUNT_CHEER, text = 'Радость' },
+	['laugh'] = { taunt = ACT_GMOD_TAUNT_LAUGH, text = 'Смех' },
+	['muscle'] = { taunt = ACT_GMOD_TAUNT_MUSCLE, text = 'Мускулы' },
+	['zombie'] = { taunt = ACT_GMOD_GESTURE_RANGE_ZOMBIE, text = 'Зомби' },
+	['robot'] = { taunt = ACT_GMOD_TAUNT_ROBOT, text = 'Робот' },
+	['dance'] = { taunt = ACT_GMOD_TAUNT_DANCE, text = 'Танец' },
+	['agree'] = { taunt = ACT_GMOD_GESTURE_AGREE, text = 'Соглашение' },
+	['becon'] = { taunt = ACT_GMOD_GESTURE_BECON, text = 'Позвать' },
+	['disagree'] = { taunt = ACT_GMOD_GESTURE_DISAGREE, text = 'Упрекнуть' },
+	['salute'] = { taunt = ACT_GMOD_TAUNT_SALUTE, text = 'Салют' },
+	['wave'] = { taunt = ACT_GMOD_GESTURE_WAVE, text = 'Приветствие' },
+	['forward'] = { taunt = ACT_SIGNAL_FORWARD, text = 'Вперёд' },
+	['pers'] = { taunt = ACT_GMOD_TAUNT_PERSISTENCE, text = 'Напугать' },
+	['bow'] = { taunt = ACT_GMOD_GESTURE_BOW, text = 'Поклон' },
+	['group'] = { taunt = ACT_SIGNAL_GROUP, text = 'Группа' },
+	-- ['halt'] = { text = 'Остановка' }
 }
 
 HANDCUFFED_DURATION = 0.5
@@ -529,6 +546,8 @@ DEFAULT_FEATURES = {
     ['land'] = false,
     ['specialist'] = false,
     ['med'] = false,
+    ['reconhui'] = false,
+    ['flame'] = false,
 }
 
 timer.Simple(.1,function()
@@ -538,6 +557,10 @@ timer.Simple(.1,function()
         ['comm'] = {
             name = 'Связист',
             weapons = {'sup_dc15s', 'm9k_ww2artillery','m9k_orbital_strike'},
+        },
+        ['flame'] = {
+            name = 'Огнемётчик',
+            weapons = {'weapon_sanic_m2_flamethrower', 'sup_dc17'},
         },
         ['med'] = {
             name = 'Медик',
@@ -579,10 +602,10 @@ timer.Simple(.1,function()
             name = 'Тяжёлый',
             weapons = {'sup_dc15a','weapon_hexshield','sup_z6'},
         },
-        -- ['arf'] = {
-        --     name = 'Разведка',
-        --     weapons = {'hook','weapon_hexshield','sup_repsniper','weapon_rope_knife','weapon_rpw_binoculars_nvg'},
-        -- },
+        ['reconhui'] = {
+            name = 'Диверсант',
+            weapons = {'hook','m9k_suicide_bomb','m9k_m61_frag','m9k_proxy_mine','t3m4_empgrenade','zeus_thermaldet'},
+        },
         ['specialist'] = {
             name = 'Специалист',
             weapons = {'sup_repsniper','weapon_rpw_binoculars_nvg','sup_repat'},

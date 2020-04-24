@@ -52,8 +52,8 @@ ENT.MaxTurnRoll = 160
 
 ENT.MaxPerfVelocity = 1500
 
-ENT.MaxHealth = 3000
-ENT.MaxShield = 3000
+ENT.MaxHealth = 11000
+-- ENT.MaxShield = 3000
 
 ENT.Stability = 0.7
 

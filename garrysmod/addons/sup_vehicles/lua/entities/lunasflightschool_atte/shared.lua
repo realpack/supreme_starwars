@@ -47,7 +47,7 @@ ENT.Mass = 5000
 ENT.SeatPos = Vector(218,0,148)
 ENT.SeatAng = Angle(0,-90,0)
 
-ENT.MaxHealth = 10000
+ENT.MaxHealth = 60000
 
 function ENT:AddDataTables()
 	self:NetworkVar( "Entity",22, "RearEnt" )

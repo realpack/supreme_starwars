@@ -2,6 +2,8 @@ if CLIENT then
 	surface.CreateFont("meta.admin.font", { font = "Play Bold", size = 12, extended = true })
 	surface.CreateFont("meta.admin.Noclipfont", { font = "Play Bold", size = 30, extended = true })
 
+	-- hook.Add('ShowTeam', any identifier, function func)
+
 	local function IsDark(color)
 		local val = ((color.r*299)+(color.g*587)+(color.b*114))/1000
 		if val < 50 then
@@ -17,7 +19,9 @@ if CLIENT then
 		end
 	end
 
+	show_adminmode = true
 	hook.Add("HUDPaint", "meta.admin.HUDPaint", function()
+		if not show_adminmode then return end
 		local ply = LocalPlayer()
 
 		if not ply:IsAdmin() then return end

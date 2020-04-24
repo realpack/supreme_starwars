@@ -23,7 +23,7 @@ ENT.Drag = 0
 ENT.SeatPos = Vector(207,0,120)
 ENT.SeatAng = Angle(0,-90,0)
 
-ENT.MaxHealth = 4000
+ENT.MaxHealth = 8000
 
 ENT.MaxPrimaryAmmo = 1400
 ENT.MaxSecondaryAmmo = 26

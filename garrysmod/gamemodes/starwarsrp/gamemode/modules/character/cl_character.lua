@@ -44,7 +44,7 @@ local names = {
 	},
 }
 
--- local mysound = CreateSound( "sasoriza/training.wav" )
+-- local mysound = CreateSound( "sup_sound/ui/background.mp3" )
 
 function textWrap(text, font, pxWidth)
 	local total = 0
@@ -695,15 +695,14 @@ netstream.Hook("OpenInitCharacterMenu", function(characters)
 		Menu:Remove()
 	end
 
-	surface.PlaySound('sasoriza/training.wav')
+	surface.PlaySound('sup_sound/ui/background.mp3')
 end)
 
 
 netstream.Hook("OpenCharacterMenu", function(characters)
-	surface.PlaySound('sasoriza/training.wav')
+	surface.PlaySound('sup_sound/ui/background.mp3')
 	OpenCharacterMenu(characters)
 end)
-
 -- local function get_current_pos()
 -- 	local map = string.lower(game.GetMap())
 -- 	local result = LOADING_CAM_POS[map] and LOADING_CAM_POS[map] or LOADING_CAM_POS['Default']

@@ -16,18 +16,18 @@ local function RestoreRelationship(src,tgt)
 	src:AddEntityRelationship(tgt,disp)
 	src.m_tbRelsDef[tgt] = nil
 end
-local function ApplyRelationship(src,tgt,disp)
-	for _,ent in ipairs(ents.FindByClass(src)) do
-		if(ent:IsNPC()) then
-			for _,entTgt in ipairs(ents.FindByClass(tgt)) do
-				if(entTgt:IsNPC() || entTgt:IsPlayer()) then
-					StoreDisposition(ent,entTgt)
-					ent:AddEntityRelationship(entTgt,disp,100)
-				end
-			end
-		end
-	end
-end
+-- local function ApplyRelationship(src,tgt,disp)
+-- 	for _,ent in ipairs(ents.FindByClass(src)) do
+-- 		if(ent:IsNPC()) then
+-- 			for _,entTgt in ipairs(ents.FindByClass(tgt)) do
+-- 				if(entTgt:IsNPC() || entTgt:IsPlayer()) then
+-- 					StoreDisposition(ent,entTgt)
+-- 					ent:AddEntityRelationship(entTgt,disp,100)
+-- 				end
+-- 			end
+-- 		end
+-- 	end
+-- end
 hook.Add("OnEntityCreated","npctool_relman_apply",function(ent)
 	if(enabled && ent:IsValid() && ent:IsNPC()) then
 		timer.Simple(0.1,function()
@@ -101,39 +101,39 @@ local function ClearRelationships(pl)
 	tRels = {}
 end
 
-net.Receive("npctool_relman_up",function(len,pl)
-	ClearRelationships(pl)
-	local numRels = net.ReadUInt(12)
-	enabled = pl:GetInfoNum("npctool_relman_enabled",1) != 0
-	for i = 1,numRels do
-		local src = net.ReadString()
-		local numTgts = net.ReadUInt(12)
-		tRels[src] = tRels[src] || {}
-		for j = 1,numTgts do
-			local tgt = net.ReadString()
-			local disp = net.ReadUInt(3)
-			tRels[src][tgt] = disp
-			if(enabled) then ApplyRelationship(src,tgt,disp) end
-		end
-	end
-end)
+-- net.Receive("npctool_relman_up",function(len,pl)
+-- 	ClearRelationships(pl)
+-- 	local numRels = net.ReadUInt(12)
+-- 	enabled = pl:GetInfoNum("npctool_relman_enabled",1) != 0
+-- 	for i = 1,numRels do
+-- 		local src = net.ReadString()
+-- 		local numTgts = net.ReadUInt(12)
+-- 		tRels[src] = tRels[src] || {}
+-- 		for j = 1,numTgts do
+-- 			local tgt = net.ReadString()
+-- 			local disp = net.ReadUInt(3)
+-- 			tRels[src][tgt] = disp
+-- 			if(enabled) then ApplyRelationship(src,tgt,disp) end
+-- 		end
+-- 	end
+-- end)
 
-net.Receive("npctool_relman_en",function(len,pl)
-	enabled = net.ReadUInt(1) == 1
-	if(!enabled) then
-		for src,rels in pairs(tRels) do
-			for tgt,disp in pairs(rels) do
-				RestoreRelationships(src,tgt)
-			end
-		end
-		return
-	end
-	for src,rels in pairs(tRels) do
-		for tgt,disp in pairs(rels) do
-			ApplyRelationship(src,tgt,disp)
-		end
-	end
-end)
+-- net.Receive("npctool_relman_en",function(len,pl)
+-- 	enabled = net.ReadUInt(1) == 1
+-- 	if(!enabled) then
+-- 		for src,rels in pairs(tRels) do
+-- 			for tgt,disp in pairs(rels) do
+-- 				RestoreRelationships(src,tgt)
+-- 			end
+-- 		end
+-- 		return
+-- 	end
+-- 	for src,rels in pairs(tRels) do
+-- 		for tgt,disp in pairs(rels) do
+-- 			ApplyRelationship(src,tgt,disp)
+-- 		end
+-- 	end
+-- end)
 
 net.Receive("npctool_relman_clr",function(len,pl)
 	ClearRelationships(pl)
