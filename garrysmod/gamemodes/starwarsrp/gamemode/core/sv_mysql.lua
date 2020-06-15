@@ -5,8 +5,9 @@ hook.Add( "DatabaseInitialized", "DatabaseInitialized", function()
 			steam_id varchar(25),
 			community_id TEXT,
 			player varchar(255),
-            money INT,
-            vehicles TEXT
+			money INT,
+			vehicles TEXT,
+			items TEXT
 		);
 	]],nil,function(err)
 		print(err)
