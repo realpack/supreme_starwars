@@ -1,5 +1,5 @@
 function pMeta:CanUseWhitelist()
-    return WHITELIST_ADMINS[self:GetUserGroup()] or LEGION_CMDS[LocalPlayer():Team()]
+    return WHITELIST_ADMINS[self:GetUserGroup()] or LEGION_CMDS[self:Team()]
 end
 
 function pMeta:CanGiveTeam(tm)
