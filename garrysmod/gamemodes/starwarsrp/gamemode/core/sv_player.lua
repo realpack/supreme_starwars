@@ -10,6 +10,24 @@ function pMeta:SavePlayerData( name, value, is_money )
     ))
 end
 
+function pMeta:ChangeRPID( new )
+    if not self:GetNVar('is_load_char') then return end
+
+    local t = self:Team()
+    local char_id = self:GetNVar('meta_character')
+
+    if not char_id then return end
+    if t == TEAM_CONNECTING or t == TEAM_SPECTATOR or t == TEAM_UNASSIGNED then return end
+
+    MySQLite.query(string.format( "UPDATE metahub_characters SET rpid = %s WHERE character_id = %s;",
+        MySQLite.SQLStr( new ),
+        MySQLite.SQLStr( char_id)
+    ), function()
+        self:SetNVar('meta_rpid', new, NETWORK_PROTOCOL_PUBLIC)
+        self:SetNWString('meta_rpid', new)
+    end)
+end
+
 function pMeta:CharacterByID(character_id)
     for i, char in pairs(self.Characters) do
         if char.character_id == character_id then
