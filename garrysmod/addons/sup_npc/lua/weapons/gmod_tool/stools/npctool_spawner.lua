@@ -697,7 +697,7 @@ else
 		undo.Finish("Patrol Point")
 	end)
 	net.Receive("sv_npctool_spawner_spawn",function(len,pl)
-		if pl:IsAdmin() then return end
+		if not pl:IsAdmin() then return end
 
 		local pos = net.ReadVector()
 		local yaw = net.ReadFloat()
