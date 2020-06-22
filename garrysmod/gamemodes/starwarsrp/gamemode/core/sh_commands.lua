@@ -123,6 +123,21 @@ function ChangeRPID( pPlayer, cmd, args )
 end
 meta.cmd.add('rpid',ChangeRPID)
 
+-- /nickname STEAM_0:0:66299997 pack2
+-- Работает только когда игрок вырбал пероснажа.
+function ChangeNickname( pPlayer, cmd, args )
+	if pPlayer:IsAdmin() then
+		local steam_id = args[2]
+		local target = player.GetBySteamID( steam_id )
+
+		if string.match(steam_id, "STEAM_(%d+):(%d+):(%d+)") and IsValid(target) then
+			local rpid = args[3]
+			target:ChangeNickname( rpid )
+		end
+	end
+end
+meta.cmd.add('nickname',ChangeNickname)
+
 meta.cmd.add('thirdperson',function( pPlayer )
 	netstream.Start(pPlayer, "thirdperson_toggle")
 end)

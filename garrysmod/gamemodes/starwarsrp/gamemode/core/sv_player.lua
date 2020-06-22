@@ -28,6 +28,25 @@ function pMeta:ChangeRPID( new )
     end)
 end
 
+function pMeta:ChangeNickname( new )
+    if not self:GetNVar('is_load_char') then return end
+
+    local t = self:Team()
+    local char_id = self:GetNVar('meta_character')
+
+    if not char_id then return end
+    if t == TEAM_CONNECTING or t == TEAM_SPECTATOR or t == TEAM_UNASSIGNED then return end
+
+    local character_name = string.sub( new, 1, 30 )
+
+    MySQLite.query(string.format( "UPDATE metahub_characters SET character_name = %s WHERE character_id = %s;",
+        MySQLite.SQLStr( character_name ),
+        MySQLite.SQLStr( char_id )
+    ), function()
+        self:SetNWString( "rpname", character_name )
+    end)
+end
+
 function pMeta:CharacterByID(character_id)
     for i, char in pairs(self.Characters) do
         if char.character_id == character_id then
