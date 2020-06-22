@@ -980,7 +980,7 @@ local function OpenContextMenu()
 
 	if LocalPlayer():GetNVar('meta_radio') ~= 0 then
 		for k, v in pairs(player.GetAll()) do
-			if v:GetNVar('meta_radio') == LocalPlayer():GetNVar('meta_radio') and IsValid(v) then
+			if v:GetNVar('meta_radio') == LocalPlayer():GetNVar('meta_radio') and IsValid(v) and v:Team() then
 				-- table.remove(radio_players, k)
 				-- radio_players[k] = nil
 				local RadioPlayer = vgui.Create('DPanel')
