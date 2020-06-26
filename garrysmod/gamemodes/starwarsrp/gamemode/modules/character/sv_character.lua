@@ -3,7 +3,6 @@ netstream.Hook("NewPlayerCharacter", function(pPlayer, data)
 
     local character_name = string.sub( data.name, 1, 30 )
     local rpid = math.random(1,9)..math.random(1,9)..math.random(1,9)..math.random(1,9)
-    -- PrintTable(data)
 
     local whitelist_teams = WHITELIST_GROUP_TEAMS[pPlayer:GetUserGroup()]
     local start_team = (whitelist_teams and data.start_team and whitelist_teams[data.start_team]) and data.start_team or TEAM_CADET
@@ -21,23 +20,25 @@ netstream.Hook("NewPlayerCharacter", function(pPlayer, data)
                 player_id = player_data[1].id,
                 rpid = rpid,
                 team_id = job.jobID,
-                character_name = character_name
+                character_name = character_name,
+                data = {},
             }
             pPlayer:SetNVar('meta_money', tonumber(player_data[1].money), NETWORK_PROTOCOL_PUBLIC)
             pPlayer:SetNVar('meta_vehicles', util.JSONToTable(player_data[1].vehicles), NETWORK_PROTOCOL_PUBLIC)
-            pPlayer:SetNVar('meta_vehicles1', util.JSONToTable(player_data[1].vehicles), NETWORK_PROTOCOL_PUBLIC)
             pPlayer:SetNVar('meta_model', model, NETWORK_PROTOCOL_PUBLIC)
+            pPlayer:SetNVar('meta_data', util.JSONToTable(char.data), NETWORK_PROTOCOL_PUBLIC)
 
             local max_characters = GROUPS_RELATION[pPlayer:GetUserGroup()] or 1
             if #characters <= max_characters then
-                MySQLite.query(string.format("INSERT INTO `metahub_characters`(player_id, rpid, rank, features, team_id, character_name, model) VALUES(%s, %s, %s, %s, %s, %s, %s);",
+                MySQLite.query(string.format("INSERT INTO `metahub_characters`(player_id, rpid, rank, features, team_id, character_name, model, data) VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s);",
                     char.player_id,
                     MySQLite.SQLStr( char.rpid ),
                     MySQLite.SQLStr( default_rank ),
                     MySQLite.SQLStr( util.TableToJSON(DEFAULT_FEATURES) ),
                     MySQLite.SQLStr( char.team_id ),
                     MySQLite.SQLStr( char.character_name ),
-                    MySQLite.SQLStr( model )
+                    MySQLite.SQLStr( model ),
+                    MySQLite.SQLStr( util.TableToJSON(char.data) )
                 ), function(e, char_id)
                     pPlayer.Characters = characters or {}
                     char.character_id = char_id
@@ -46,6 +47,7 @@ netstream.Hook("NewPlayerCharacter", function(pPlayer, data)
                     char.features = DEFAULT_FEATURES
                     char.team_index = start_team
                     char.model = model
+                    char.data = {}
                     table.insert(pPlayer.Characters, char)
 
                     GmLogger.PostMessageInDiscord(string.format("Игрок **%s**(``%s``) создал нового персонажа(%s), .", pPlayer:OldName(), pPlayer:SteamID(), char_id, team.GetName(start_team)), '0x4f545c')
@@ -67,7 +69,6 @@ netstream.Hook("NewPlayerCharacter", function(pPlayer, data)
 
             pPlayer:SetNVar('meta_money', DEFAULT_MONEY, NETWORK_PROTOCOL_PUBLIC)
             pPlayer:SetNVar('meta_vehicles', util.JSONToTable('{}'), NETWORK_PROTOCOL_PUBLIC)
-            pPlayer:SetNVar('meta_vehicles1', util.JSONToTable('{}'), NETWORK_PROTOCOL_PUBLIC)
         end
     end)
 end)
@@ -82,9 +83,10 @@ netstream.Hook("RemovePlayerCharacter", function(pPlayer, data)
         end)
         return
     end
+
     local character_id = data.character_id
     for k, char in pairs(pPlayer.Characters) do
-        if char.character_id == character_id then
+        if char.character_id == 1 then
             if char.team_id == 'cadet_dolbaeb' then
                 netstream.Start(pPlayer, "OpenCharacterMenu", { characters = pPlayer.Characters, err = 'Вы не можете удалить этого персонажа.' })
                 can_remove = false
@@ -103,23 +105,17 @@ netstream.Hook("RemovePlayerCharacter", function(pPlayer, data)
 end)
 
 netstream.Hook("SpawnPlayerCharacter", function(pPlayer, data)
-    print(pPlayer, '1 spawn character '..data.character_id)
-    print(pPlayer:Alive())
-
     if not pPlayer:Alive() then return end
 
     if not IsValid(pPlayer) then return end
     local character_id = data.character_id
 
-    print(pPlayer, '2 spawn character '..data.character_id)
     if not (character_id) then return end
     if not (pPlayer:CharacterByID(character_id)) then return end
 
-    -- print(pPlayer, '3 spawn character '..data.character_id)
     if pPlayer:GetNVar("Arrested") then
         return
     end
-    -- print(pPlayer, '4 spawn character '..data.character_id)
 
     pPlayer:LoadCharacter(function(char)
         hook.Run('PlayerLoadout', pPlayer)
@@ -128,18 +124,17 @@ netstream.Hook("SpawnPlayerCharacter", function(pPlayer, data)
         pPlayer:SetNWString('meta_rank', char.rank)
 
         local features = istable(char.features) and char.features or util.JSONToTable(char.features)
+        local data = istable(char.data) and char.data or util.JSONToTable(char.data)
         pPlayer:SetNVar('meta_features', features, NETWORK_PROTOCOL_PUBLIC)
         pPlayer:SetNVar('meta_rpid', char.rpid, NETWORK_PROTOCOL_PUBLIC)
         pPlayer:SetNWString( 'meta_rpid', char.rpid )
         pPlayer:SetNWString( "rpname", char.character_name )
         pPlayer:SetNVar('meta_model', char.model, NETWORK_PROTOCOL_PUBLIC)
-
-        -- print(pPlayer)
-        -- PrintTable(char)
+        pPlayer:SetNVar('meta_data', data, NETWORK_PROTOCOL_PUBLIC)
 
         pPlayer:Spawn()
 
-        GmLogger.PostMessageInDiscord(string.format("Игрок **%s**(``%s``) выбрал персонажа(``%s``,``%s``).", pPlayer:OldName(), pPlayer:SteamID(), char.character_name, character_id), '0x4f545c')
+        -- GmLogger.PostMessageInDiscord(string.format("Игрок **%s**(``%s``) выбрал персонажа(``%s``,``%s``).", pPlayer:OldName(), pPlayer:SteamID(), char.character_name, character_id), '0x4f545c')
     end, character_id)
 
     MySQLite.query(string.format("SELECT * FROM `metahub_player_levelsystem` WHERE steam_id = %s;", MySQLite.SQLStr(pPlayer:SteamID())), function(data)
@@ -162,35 +157,29 @@ netstream.Hook("SpawnPlayerCharacter", function(pPlayer, data)
 	end )
 end)
 
--- print('char sv')
 hook.Add('PlayerInitialSpawn', 'Characters_PlayerInitialSpawn', function(pPlayer)
-    -- print('------------',pPlayer)
     pPlayer:SetNVar("Arrested", false)
 
     MySQLite.query(string.format("SELECT * FROM `metahub_player_data` WHERE steam_id = %s;", MySQLite.SQLStr(pPlayer:SteamID())), function(player_data)
-        -- print(player_data)
         if player_data and istable(player_data) then
 
             pPlayer:SetNVar('meta_money', tonumber(player_data[1].money), NETWORK_PROTOCOL_PUBLIC)
             pPlayer:SetNVar('meta_vehicles', util.JSONToTable(player_data[1].vehicles), NETWORK_PROTOCOL_PUBLIC)
-            pPlayer:SetNVar('meta_vehicles1', util.JSONToTable(player_data[1].vehicles), NETWORK_PROTOCOL_PUBLIC)
 
             pPlayer:RequestCharacters(function(characters, player_data)
                 netstream.Start(pPlayer, "OpenInitCharacterMenu", { characters = characters })
                 pPlayer.Characters = characters
             end)
         else
-            MySQLite.query(string.format("INSERT INTO `metahub_player_data`(steam_id, community_id, player, money, vehicles, items) VALUES(%s, %s, %s, %s, %s, %s);",
+            MySQLite.query(string.format("INSERT INTO `metahub_player_data`(steam_id, community_id, player, money, vehicles) VALUES(%s, %s, %s, %s, %s);",
                 MySQLite.SQLStr( pPlayer:SteamID() ),
                 MySQLite.SQLStr( pPlayer:SteamID64() ),
                 MySQLite.SQLStr( pPlayer:OldName() ),
                 MySQLite.SQLStr( DEFAULT_MONEY ),
-                MySQLite.SQLStr( '{}' ),
                 MySQLite.SQLStr( '{}' )
             ), function(e, id)
                 pPlayer:SetNVar('meta_money', DEFAULT_MONEY, NETWORK_PROTOCOL_PUBLIC)
                 pPlayer:SetNVar('meta_vehicles', util.JSONToTable('{}'), NETWORK_PROTOCOL_PUBLIC)
-                pPlayer:SetNVar('meta_vehicles1', util.JSONToTable('{}'), NETWORK_PROTOCOL_PUBLIC)
 
                 pPlayer:RequestCharacters(function(characters, player_data)
                     netstream.Start(pPlayer, "OpenInitCharacterMenu", { characters = characters })

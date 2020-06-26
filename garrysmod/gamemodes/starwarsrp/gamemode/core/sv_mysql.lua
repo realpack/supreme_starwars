@@ -21,7 +21,8 @@ hook.Add( "DatabaseInitialized", "DatabaseInitialized", function()
             features TEXT,
             team_id varchar(255),
             character_name varchar(255),
-            model varchar(255)
+            model varchar(255),
+			data TEXT
 		);
 	]],nil,function(err)
 		print(err)
